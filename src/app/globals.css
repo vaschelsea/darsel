@@ -31,6 +31,73 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Hero SVG Animations */
+.hero-line-draw {
+  animation: drawLine 1.5s ease-out forwards;
+}
+
+.hero-svg-fade {
+  opacity: 0;
+  animation: svgFadeIn 0.6s ease-out forwards;
+}
+
+.hero-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-pulse-ring {
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+/* Offer card icons */
+.offer-icon {
+  transition: transform 0.3s ease;
+}
+.offer-icon:hover {
+  transform: scale(1.1);
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes svgFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    r: 4;
+    opacity: 0.8;
+  }
+  50% {
+    r: 8;
+    opacity: 0;
+  }
+  100% {
+    r: 4;
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
