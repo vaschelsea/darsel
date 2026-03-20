@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const RETAIL_PIP = 1.8;
 const PREMIUM_PIP = 1.0;
@@ -8,17 +8,27 @@ const DARSAL_STANDARD = 0.6;
 const DARSAL_VOLUME = 0.5;
 const MAX_SCALE = 2.0;
 
-// 100 trades/day savings vs retail, scaled proportionally
 function calcSavings(darsalPip: number): number {
   return Math.round((RETAIL_PIP - darsalPip) * 100);
 }
 
 export default function HeroAnimation() {
   const [tier, setTier] = useState<'standard' | 'volume'>('standard');
+  const [entered, setEntered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const darsalPip = tier === 'standard' ? DARSAL_STANDARD : DARSAL_VOLUME;
   const savings = calcSavings(darsalPip);
 
-  const barMaxWidth = 100; // percentage
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setEntered(true); observer.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const bars = [
     {
@@ -27,6 +37,7 @@ export default function HeroAnimation() {
       barColor: 'bg-[#3A3F47]',
       textColor: 'text-[#9CA3AF]',
       pipColor: 'text-[#9CA3AF]',
+      delay: '0s',
     },
     {
       label: 'Premium broker',
@@ -34,6 +45,7 @@ export default function HeroAnimation() {
       barColor: 'bg-[#4B5563]',
       textColor: 'text-[#D1D5DB]',
       pipColor: 'text-[#D1D5DB]',
+      delay: '0.15s',
     },
     {
       label: 'DARSAL',
@@ -42,17 +54,26 @@ export default function HeroAnimation() {
       textColor: 'text-[#C9A96E]',
       pipColor: 'text-[#C9A96E]',
       isGold: true,
+      delay: '0.3s',
     },
   ];
 
   return (
-    <div className="w-full max-w-[520px]">
+    <div ref={ref} className="w-full max-w-[520px] mt-10 pt-8 border-t border-white/[0.08]">
       {/* Spread comparison bars */}
-      <div className="space-y-4">
+      <div className="space-y-5">
         {bars.map((bar) => {
-          const widthPercent = (bar.pip / MAX_SCALE) * barMaxWidth;
+          const widthPercent = (bar.pip / MAX_SCALE) * 100;
           return (
-            <div key={bar.label}>
+            <div
+              key={bar.label}
+              className="transition-all duration-700 ease-out"
+              style={{
+                opacity: entered ? 1 : 0,
+                transform: entered ? 'translateY(0)' : 'translateY(12px)',
+                transitionDelay: bar.delay,
+              }}
+            >
               <div className="flex items-center justify-between mb-1.5">
                 <span
                   className={`font-inter text-[13px] ${bar.textColor} ${bar.isGold ? 'font-medium' : ''}`}
@@ -69,8 +90,8 @@ export default function HeroAnimation() {
                 <div
                   className={`h-full rounded-[3px] ${bar.barColor}`}
                   style={{
-                    width: `${widthPercent}%`,
-                    transition: 'width 1.2s ease',
+                    width: entered ? `${widthPercent}%` : '0%',
+                    transition: `width 1.2s ease ${bar.delay}`,
                   }}
                 />
               </div>
@@ -80,7 +101,14 @@ export default function HeroAnimation() {
       </div>
 
       {/* Volume tier toggles */}
-      <div className="flex gap-3 mt-6">
+      <div
+        className="flex gap-3 mt-7 transition-all duration-700 ease-out"
+        style={{
+          opacity: entered ? 1 : 0,
+          transform: entered ? 'translateY(0)' : 'translateY(12px)',
+          transitionDelay: '0.5s',
+        }}
+      >
         <button
           onClick={() => setTier('standard')}
           className={`font-mono text-[12px] tracking-[0.5px] px-4 py-2 rounded-[3px] border transition-all duration-300 ${
@@ -105,8 +133,13 @@ export default function HeroAnimation() {
 
       {/* Savings callout */}
       <div
-        className="mt-6 px-5 py-4 rounded-[4px]"
-        style={{ border: '1px solid rgba(201, 169, 110, 0.2)' }}
+        className="mt-6 px-5 py-4 rounded-[4px] transition-all duration-700 ease-out"
+        style={{
+          border: '1px solid rgba(201, 169, 110, 0.2)',
+          opacity: entered ? 1 : 0,
+          transform: entered ? 'translateY(0)' : 'translateY(12px)',
+          transitionDelay: '0.65s',
+        }}
       >
         <p className="font-inter text-[13px] leading-[1.6] text-[#9CA3AF]">
           At 100 trades/day, DARSAL saves you{' '}
@@ -119,7 +152,14 @@ export default function HeroAnimation() {
       </div>
 
       {/* All-in line */}
-      <p className="mt-5 font-inter text-[14px] text-[#6B7280]">
+      <p
+        className="mt-5 font-inter text-[14px] text-[#6B7280] transition-all duration-700 ease-out"
+        style={{
+          opacity: entered ? 1 : 0,
+          transform: entered ? 'translateY(0)' : 'translateY(12px)',
+          transitionDelay: '0.8s',
+        }}
+      >
         All-in means all-in.{' '}
         <span className="text-[#C9A96E]">Zero additional commissions.</span>
       </p>
