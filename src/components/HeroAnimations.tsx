@@ -13,18 +13,18 @@ export function StrategyHeroAnimation() {
     { y: 140, label: 'Signal detection', sub: 'Statistically favorable setups only', gold: false },
   ];
 
-  const forkY = 205;
+  const forkY = 240;
   const forkNodes = [
-    { x: 120, label: 'Execute', sub: 'Precision over frequency', gold: true },
-    { x: 280, label: 'No trade', sub: 'Protection over expansion', gold: false },
+    { x: 105, label: 'Execute', sub: 'Precision over frequency', gold: true },
+    { x: 295, label: 'No trade', sub: 'Protection over expansion', gold: false },
   ];
 
-  const mergeY = 275;
+  const mergeY = 325;
   const mergeNode = { label: 'Session close → Neutral', sub: 'No overnight positions' };
 
   return (
     <div className="w-full max-w-[400px]">
-      <svg viewBox="0 0 400 340" fill="none" className="w-full h-auto" aria-hidden="true">
+      <svg viewBox="0 0 400 410" fill="none" className="w-full h-auto" aria-hidden="true">
         {/* Main vertical nodes */}
         {nodes.map((node, i) => (
           <g key={`n-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.2 + i * 0.25}s` }}>
@@ -212,7 +212,7 @@ export function StrategyHeroAnimation() {
         {/* Bottom motto */}
         <text
           x={cx}
-          y="335"
+          y="400"
           textAnchor="middle"
           fill="#6B7280"
           fontSize="11"
@@ -231,12 +231,12 @@ export function StrategyHeroAnimation() {
 /* ── MAM Hero ── Hub & Spoke with pulse animation ── */
 export function MAMHeroAnimation() {
   const accounts = [
-    { cx: 120, cy: 60, label: 'ACC 1', r: 26 },
-    { cx: 300, cy: 60, label: 'ACC 2', r: 22 },
-    { cx: 60, cy: 160, label: 'ACC 3', r: 19 },
-    { cx: 340, cy: 160, label: 'ACC 4', r: 26 },
-    { cx: 120, cy: 250, label: 'ACC 5', r: 22 },
-    { cx: 300, cy: 250, label: 'ACC 6', r: 19 },
+    { cx: 120, cy: 60, label: 'ACC 1', r: 33 },
+    { cx: 300, cy: 60, label: 'ACC 2', r: 28 },
+    { cx: 60, cy: 160, label: 'ACC 3', r: 24 },
+    { cx: 340, cy: 160, label: 'ACC 4', r: 33 },
+    { cx: 120, cy: 250, label: 'ACC 5', r: 28 },
+    { cx: 300, cy: 250, label: 'ACC 6', r: 24 },
   ];
   const hub = { cx: 200, cy: 155 };
 
@@ -325,12 +325,12 @@ export function MAMHeroAnimation() {
 /* ── Investors Hero ── Concentric arc segments ── */
 export function InvestorsHeroAnimation() {
   const cx = 200;
-  const cy = 140;
+  const cy = 130;
 
-  // 270-degree arcs: start at 135° (bottom-left), end at 45° (bottom-right)
-  // Leaving a 90° gap at the bottom
-  const startAngle = 135;
-  const endAngle = 45;
+  // 270-degree arcs forming a dome above center, opening at the bottom
+  // Start at 225° (bottom-left), sweep clockwise to 315° (bottom-right)
+  const startAngle = 225;
+  const endAngle = 315;
 
   function arcPath(r: number): string {
     const toRad = (deg: number) => (deg * Math.PI) / 180;
@@ -338,13 +338,14 @@ export function InvestorsHeroAnimation() {
     const y1 = cy + r * Math.sin(toRad(startAngle));
     const x2 = cx + r * Math.cos(toRad(endAngle));
     const y2 = cy + r * Math.sin(toRad(endAngle));
-    return `M ${x1},${y1} A ${r},${r} 0 1,0 ${x2},${y2}`;
+    // large-arc=1, sweep=1 → clockwise long way around (up and over)
+    return `M ${x1},${y1} A ${r},${r} 0 1,1 ${x2},${y2}`;
   }
 
   const arcs = [
-    { r: 100, label: 'Corporate & Family', stroke: '#374151', strokeW: 3, delay: '0.3s', labelAngle: -45, labelOffset: 16 },
-    { r: 75, label: 'Professional', stroke: '#4B5563', strokeW: 3, delay: '0.6s', labelAngle: -45, labelOffset: 16 },
-    { r: 50, label: 'Private', stroke: '#C9A96E', strokeW: 3, delay: '0.9s', labelAngle: -45, labelOffset: 16 },
+    { r: 100, label: 'Corporate & Family', stroke: '#374151', strokeW: 3, delay: '0.3s' },
+    { r: 75, label: 'Professional', stroke: '#4B5563', strokeW: 3, delay: '0.6s' },
+    { r: 50, label: 'Private', stroke: '#C9A96E', strokeW: 3, delay: '0.9s' },
   ];
 
   function labelPos(r: number, angleDeg: number) {
@@ -360,8 +361,9 @@ export function InvestorsHeroAnimation() {
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
         {/* Concentric arcs */}
         {arcs.map((arc, i) => {
-          const lp = labelPos(arc.r, -30);
-          const textX = lp.x + 20;
+          // Place labels on the left side of the arcs at ~150° to avoid right-edge clipping
+          const lp = labelPos(arc.r, 150);
+          const textX = lp.x - 20;
           const textY = lp.y;
           return (
             <g key={`arc-${i}`} className="hero-svg-fade" style={{ animationDelay: arc.delay }}>
@@ -383,8 +385,9 @@ export function InvestorsHeroAnimation() {
                 strokeDasharray="3 2"
               />
               <text
-                x={textX + 6}
+                x={textX - 6}
                 y={textY + 4}
+                textAnchor="end"
                 fill={arc.stroke === '#C9A96E' ? '#C9A96E' : 'rgba(255,255,255,0.45)'}
                 fontSize="10"
                 fontFamily="var(--font-mono)"
@@ -396,12 +399,12 @@ export function InvestorsHeroAnimation() {
           );
         })}
 
-        {/* Center text */}
+        {/* Center text — sits in the open space below the arcs */}
         <g className="hero-svg-fade" style={{ animationDelay: '1.2s' }}>
-          <text x={cx} y={cy - 2} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+          <text x={cx} y={cy + 90} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
             Capital Allocation
           </text>
-          <text x={cx} y={cy + 14} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+          <text x={cx} y={cy + 106} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
             by Selection
           </text>
         </g>
