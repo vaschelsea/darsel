@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
+import HeroAnimation from '@/components/HeroAnimation';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -8,6 +9,79 @@ export const metadata: Metadata = {
   description: 'DARSAL operates at the intersection of private wealth management and institutional currency trading.',
   openGraph: { images: ['/og-image.png'] },
 };
+
+function SpreadIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-5 offer-icon" aria-hidden="true">
+      {/* Two converging price lines showing tight spread */}
+      <polyline points="6,16 14,18 22,14 30,17 38,12 42,14" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="6,26 14,28 22,24 30,27 38,22 42,24" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+      {/* Spread bracket */}
+      <line x1="43" y1="14" x2="45" y2="14" stroke="#C9A96E" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="45" y1="14" x2="45" y2="24" stroke="#C9A96E" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
+      <line x1="43" y1="24" x2="45" y2="24" stroke="#C9A96E" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Bar chart at bottom */}
+      <rect x="8" y="36" width="5" height="6" rx="1" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" strokeWidth="0.75" />
+      <rect x="16" y="33" width="5" height="9" rx="1" fill="rgba(201,169,110,0.3)" stroke="#C9A96E" strokeWidth="0.75" />
+      <rect x="24" y="35" width="5" height="7" rx="1" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" strokeWidth="0.75" />
+      <rect x="32" y="31" width="5" height="11" rx="1" fill="rgba(201,169,110,0.35)" stroke="#C9A96E" strokeWidth="0.75" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-5 offer-icon" aria-hidden="true">
+      {/* Shield outline */}
+      <path
+        d="M24 4L6 12V22C6 33.1 13.8 43.3 24 46C34.2 43.3 42 33.1 42 22V12L24 4Z"
+        stroke="#C9A96E"
+        strokeWidth="1.5"
+        fill="rgba(201,169,110,0.06)"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Checkmark */}
+      <polyline
+        points="16,24 22,30 33,18"
+        stroke="#C9A96E"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-5 offer-icon" aria-hidden="true">
+      {/* Lock body */}
+      <rect
+        x="10"
+        y="22"
+        width="28"
+        height="20"
+        rx="3"
+        stroke="#C9A96E"
+        strokeWidth="1.5"
+        fill="rgba(201,169,110,0.06)"
+      />
+      {/* Lock shackle */}
+      <path
+        d="M16 22V16C16 11.6 19.6 8 24 8C28.4 8 32 11.6 32 16V22"
+        stroke="#C9A96E"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinecap="round"
+      />
+      {/* Keyhole */}
+      <circle cx="24" cy="31" r="3" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.15)" />
+      <line x1="24" y1="34" x2="24" y2="38" stroke="#C9A96E" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -18,8 +92,9 @@ export default function HomePage() {
         displayNumber="0.6 Pip"
         headline=""
         subheadline="No commission. No stop level. No freeze level."
+        rightContent={<HeroAnimation />}
       >
-        <p className="mt-4 mx-auto max-w-text text-[15px] md:text-base text-light-gray leading-body">
+        <p className="mt-4 max-w-text text-[15px] md:text-base text-light-gray leading-body">
           The trading conditions hedge funds negotiate — now available to independent traders managing their own capital.
         </p>
       </Hero>
@@ -51,7 +126,8 @@ export default function HomePage() {
           </ScrollReveal>
           <div className="grid md:grid-cols-3 gap-8">
             <ScrollReveal>
-              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+                <SpreadIcon />
                 <h3 className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-4">
                   Institutional Spreads
                 </h3>
@@ -61,7 +137,8 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
             <ScrollReveal>
-              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+                <ShieldIcon />
                 <h3 className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-4">
                   No Hidden Costs
                 </h3>
@@ -71,7 +148,8 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
             <ScrollReveal>
-              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+              <div className="bg-white border border-border-light rounded-lg p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-shadow duration-300">
+                <LockIcon />
                 <h3 className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-4">
                   Your Capital, Your Control
                 </h3>
