@@ -294,6 +294,137 @@ export function InvestorsHeroAnimation() {
   );
 }
 
+/* ── High Water Mark ── Interactive equity curve visualization ── */
+export function HighWaterMarkAnimation() {
+  // Equity curve: rises → peak → drops → recovers → new peak
+  const equityLine = '50,200 80,170 110,140 140,110 170,90 200,80 230,110 260,130 290,100 320,80 350,60 380,50 410,45';
+  const hwmY = 80; // Y position of the first peak (High Water Mark line)
+
+  return (
+    <div className="w-full">
+      <svg viewBox="0 0 440 260" fill="none" className="w-full h-auto" aria-hidden="true">
+        {/* Grid lines */}
+        {[60, 100, 140, 180, 220].map((y, i) => (
+          <line key={`g-${i}`} x1="40" y1={y} x2="420" y2={y} stroke="#E5E7EB" strokeWidth="0.5" />
+        ))}
+
+        {/* Y-axis labels */}
+        {['$120k', '$110k', '$100k', '$90k', '$80k'].map((label, i) => (
+          <text key={`yl-${i}`} x="36" y={64 + i * 40} textAnchor="end" fill="#9CA3AF" fontSize="9" fontFamily="var(--font-mono)" className="hero-svg-fade" style={{ animationDelay: `${0.1 + i * 0.05}s` }}>
+            {label}
+          </text>
+        ))}
+
+        {/* X-axis month labels */}
+        {['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8'].map((m, i) => (
+          <text key={`xl-${i}`} x={65 + i * 50} y={245} textAnchor="middle" fill="#9CA3AF" fontSize="9" fontFamily="var(--font-mono)" className="hero-svg-fade" style={{ animationDelay: `${0.1 + i * 0.05}s` }}>
+            {m}
+          </text>
+        ))}
+
+        {/* NO FEE region (below HWM during recovery) — shown first so it's behind the line */}
+        <polygon
+          points={`200,${hwmY} 230,${hwmY} 260,${hwmY} 290,${hwmY} 230,110 260,130 290,100`}
+          fill="rgba(156,163,175,0.08)"
+          stroke="none"
+          className="hero-svg-fade"
+          style={{ animationDelay: '2s' }}
+        />
+
+        {/* FEE region (above HWM after new peak) */}
+        <polygon
+          points={`290,${hwmY} 320,${hwmY} 350,${hwmY} 380,${hwmY} 410,${hwmY} 410,45 380,50 350,60 320,${hwmY} 290,100`}
+          fill="rgba(201,169,110,0.12)"
+          stroke="none"
+          className="hero-svg-fade"
+          style={{ animationDelay: '2.2s' }}
+        />
+
+        {/* High Water Mark horizontal line */}
+        <line
+          x1="180"
+          y1={hwmY}
+          x2="420"
+          y2={hwmY}
+          stroke="#C9A96E"
+          strokeWidth="1.5"
+          strokeDasharray="6 4"
+          className="hero-svg-fade"
+          style={{ animationDelay: '1.2s' }}
+        />
+
+        {/* HWM label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.4s' }}>
+          <rect x="168" y={hwmY - 18} width="110" height="16" rx="3" fill="#C9A96E" />
+          <text x="223" y={hwmY - 7} textAnchor="middle" fill="white" fontSize="8" fontFamily="var(--font-mono)" fontWeight="600" letterSpacing="0.5">
+            HIGH WATER MARK
+          </text>
+        </g>
+
+        {/* Equity curve line */}
+        <polyline
+          points={equityLine}
+          stroke="#2A2A2A"
+          strokeWidth="2"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="hero-line-draw"
+          style={{ strokeDasharray: 800, strokeDashoffset: 800 }}
+        />
+
+        {/* Peak 1 dot */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1s' }}>
+          <circle cx="200" cy={hwmY} r="4" fill="#2A2A2A" />
+          <text x="200" y={hwmY - 12} textAnchor="middle" fill="#2A2A2A" fontSize="8" fontFamily="var(--font-mono)" fontWeight="600">
+            PEAK
+          </text>
+        </g>
+
+        {/* Drawdown arrow */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.8s' }}>
+          <line x1="245" y1={hwmY + 4} x2="245" y2="126" stroke="#9CA3AF" strokeWidth="1" strokeDasharray="3 2" />
+          <text x="252" y="110" fill="#9CA3AF" fontSize="7" fontFamily="var(--font-mono)">
+            DRAWDOWN
+          </text>
+        </g>
+
+        {/* No fee label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '2.2s' }}>
+          <text x="260" y="115" textAnchor="middle" fill="#9CA3AF" fontSize="7" fontFamily="var(--font-mono)" fontWeight="500">
+            NO FEE
+          </text>
+        </g>
+
+        {/* Fee zone label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '2.5s' }}>
+          <rect x="340" y="58" width="66" height="14" rx="2" fill="rgba(201,169,110,0.2)" />
+          <text x="373" y="68" textAnchor="middle" fill="#C9A96E" fontSize="7" fontFamily="var(--font-mono)" fontWeight="600">
+            20% FEE ZONE
+          </text>
+        </g>
+
+        {/* New peak dot */}
+        <g className="hero-svg-fade" style={{ animationDelay: '2.8s' }}>
+          <circle cx="410" cy="45" r="4" fill="#C9A96E" />
+          <circle cx="410" cy="45" r="4" fill="#C9A96E" className="hero-pulse-ring" />
+          <text x="410" y="38" textAnchor="middle" fill="#C9A96E" fontSize="8" fontFamily="var(--font-mono)" fontWeight="600">
+            NEW PEAK
+          </text>
+        </g>
+
+        {/* Recovery label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '2s' }}>
+          <text x="280" y={hwmY + 22} fill="#9CA3AF" fontSize="7" fontFamily="var(--font-mono)">
+            RECOVERY
+          </text>
+          <polyline points="275,96 280,100 285,96" stroke="#9CA3AF" strokeWidth="1" fill="none" strokeLinecap="round" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 /* ── Access Hero ── Gateway / institutional access ── */
 export function AccessHeroAnimation() {
   return (
