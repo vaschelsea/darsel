@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import { PerformanceHeroAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default function PerformancePage() {
       <Hero
         headline="Performance"
         subheadline="Live performance data for BOB and institutional spread conditions."
+        rightContent={<PerformanceHeroAnimation />}
       />
 
       {/* Summary Stats */}

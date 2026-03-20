@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import { StrategyHeroAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function StrategyPage() {
       <Hero
         headline="Strategy"
         subheadline="Financial markets are complex. But one factor consistently erodes trader performance above all others: trading costs. For scalpers and high-frequency strategies, execution conditions define profitability. Every pip counts."
+        rightContent={<StrategyHeroAnimation />}
       />
 
       {/* The Core Problem */}

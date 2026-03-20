@@ -17,7 +17,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
         <div className="mx-auto max-w-content px-6 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
             {label && (
-              <p className="font-mono text-[11px] uppercase tracking-caps text-gold mb-4">
+              <p className="font-mono text-[13px] uppercase tracking-caps text-gold mb-4">
                 {label}
               </p>
             )}
@@ -53,7 +53,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
     >
       <div className="mx-auto max-w-content px-6 text-center">
         {label && (
-          <p className="font-mono text-[11px] uppercase tracking-caps text-gold mb-4">
+          <p className="font-mono text-[13px] uppercase tracking-caps text-gold mb-4">
             {label}
           </p>
         )}

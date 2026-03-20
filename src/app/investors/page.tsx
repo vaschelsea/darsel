@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import { InvestorsHeroAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -14,12 +15,19 @@ export default function InvestorsPage() {
       <Hero
         headline="Investors"
         subheadline="We understand your world and what you need."
+        rightContent={<InvestorsHeroAnimation />}
       />
 
       {/* Private Investors */}
       <section className="py-20 md:py-28 bg-bg-primary">
         <div className="mx-auto max-w-text px-6">
           <ScrollReveal>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mb-6 offer-icon" aria-hidden="true">
+              <circle cx="32" cy="20" r="10" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <path d="M12 52C12 42 21 34 32 34C43 34 52 42 52 52" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <rect x="26" y="44" width="12" height="14" rx="2" stroke="#C9A96E" strokeWidth="1" fill="rgba(201,169,110,0.1)" />
+              <line x1="32" y1="47" x2="32" y2="50" stroke="#C9A96E" strokeWidth="1" strokeLinecap="round" />
+            </svg>
             <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-8">
               Private Investors
             </h2>
@@ -34,6 +42,15 @@ export default function InvestorsPage() {
       <section className="py-20 md:py-28 bg-white">
         <div className="mx-auto max-w-text px-6">
           <ScrollReveal>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mb-6 offer-icon" aria-hidden="true">
+              <circle cx="22" cy="18" r="8" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <circle cx="42" cy="18" r="8" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <path d="M6 48C6 40 13 34 22 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d="M58 48C58 40 51 34 42 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d="M22 34C26 30 38 30 42 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <polyline points="26,42 32,48 38,42" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <polyline points="20,54 28,50 36,52 44,48 52,50" stroke="rgba(201,169,110,0.4)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-8">
               Professional Investors &amp; Advisors
             </h2>
@@ -48,6 +65,18 @@ export default function InvestorsPage() {
       <section className="py-20 md:py-28 bg-bg-primary">
         <div className="mx-auto max-w-text px-6">
           <ScrollReveal>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mb-6 offer-icon" aria-hidden="true">
+              <rect x="14" y="22" width="36" height="32" rx="2" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <rect x="26" y="8" width="12" height="14" rx="1" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <line x1="32" y1="22" x2="32" y2="14" stroke="#C9A96E" strokeWidth="1" />
+              <rect x="20" y="30" width="6" height="6" rx="1" stroke="rgba(201,169,110,0.5)" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
+              <rect x="29" y="30" width="6" height="6" rx="1" stroke="rgba(201,169,110,0.5)" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
+              <rect x="38" y="30" width="6" height="6" rx="1" stroke="rgba(201,169,110,0.5)" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
+              <rect x="20" y="40" width="6" height="6" rx="1" stroke="rgba(201,169,110,0.5)" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
+              <rect x="38" y="40" width="6" height="6" rx="1" stroke="rgba(201,169,110,0.5)" strokeWidth="1" fill="rgba(201,169,110,0.08)" />
+              <rect x="28" y="44" width="8" height="10" rx="1" stroke="#C9A96E" strokeWidth="1" fill="rgba(201,169,110,0.12)" />
+              <path d="M32 4L24 10H40L32 4Z" stroke="#C9A96E" strokeWidth="1" fill="rgba(201,169,110,0.1)" strokeLinejoin="round" />
+            </svg>
             <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-8">
               Corporate &amp; Family Offices
             </h2>
