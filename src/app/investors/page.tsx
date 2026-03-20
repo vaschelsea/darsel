@@ -43,13 +43,19 @@ export default function InvestorsPage() {
         <div className="mx-auto max-w-text px-6">
           <ScrollReveal>
             <svg width="64" height="64" viewBox="0 0 64 64" fill="none" className="mb-6 offer-icon" aria-hidden="true">
-              <circle cx="22" cy="18" r="8" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
-              <circle cx="42" cy="18" r="8" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
-              <path d="M6 48C6 40 13 34 22 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              <path d="M58 48C58 40 51 34 42 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              <path d="M22 34C26 30 38 30 42 34" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              <polyline points="26,42 32,48 38,42" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-              <polyline points="20,54 28,50 36,52 44,48 52,50" stroke="rgba(201,169,110,0.4)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              {/* Briefcase */}
+              <rect x="10" y="24" width="44" height="28" rx="3" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+              <path d="M24 24V18C24 15.8 25.8 14 28 14H36C38.2 14 40 15.8 40 18V24" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              {/* Handshake inside */}
+              <path d="M22 38C22 38 26 34 30 34C32 34 33 35 33 35" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M42 38C42 38 38 34 34 34C33 34 33 35 33 35" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M33 35L37 39" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d="M33 35L27 41" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              {/* Rising chart line above briefcase */}
+              <polyline points="18,44 26,42 34,44 42,40 48,42" stroke="rgba(201,169,110,0.4)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              {/* Badge/seal accent */}
+              <circle cx="50" cy="18" r="6" stroke="#C9A96E" strokeWidth="1" fill="rgba(201,169,110,0.1)" />
+              <polyline points="47,18 49,20 53,16" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-8">
               Professional Investors &amp; Advisors
