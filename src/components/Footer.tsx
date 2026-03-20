@@ -26,7 +26,7 @@ export default function Footer() {
             Disclaimer
           </a>
         </div>
-        <p className="mt-6 text-center text-cool-gray text-sm">
+        <p className="mt-6 text-center text-cool-gray text-xs">
           © 2003–2026 DARSAL. All rights reserved.
         </p>
       </div>
