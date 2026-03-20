@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import { AccessHeroAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function AccessPage() {
         displayNumber="0.6 Pip"
         headline="Institutional Spread Conditions"
         subheadline="Not marketing. Real trading conditions."
+        rightContent={<AccessHeroAnimation />}
       />
 
       {/* Intro */}

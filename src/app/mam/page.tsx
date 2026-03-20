@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
+import { MAMHeroAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function MAMPage() {
       <Hero
         headline="Multi-Account Manager"
         subheadline="DARSAL's MAM structure allows investors to participate in our trading strategy without managing trades themselves. Here's exactly what happens:"
+        rightContent={<MAMHeroAnimation />}
       />
 
       {/* How It Works */}

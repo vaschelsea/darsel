@@ -167,22 +167,68 @@ export default function HomePage() {
         <div className="mx-auto max-w-content px-6">
           <ScrollReveal>
             <h2 className="text-2xl md:text-[28px] font-medium text-white leading-heading tracking-heading text-center mb-4">
-              <span className="text-red-dark">BOB</span> — Our Secured Trading Machine
+              <span className="text-white font-bold">BOB</span> — Our Secured Trading Machine
             </h2>
             <p className="mx-auto max-w-text text-[15px] md:text-base text-light-gray leading-body text-center mb-16">
               For investors seeking passive exposure to FX markets, DARSAL operates BOB: a rule-based, fully automated trading system structured for monthly consistent yield.
             </p>
           </ScrollReveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {[
-              'Built on over 23 years of live trading history',
-              'Designed for capital stability, not speculation',
-              'Targets low single-digit monthly yield under strict capital control',
-              'No positions carried overnight — each session resets to neutral',
-            ].map((stat, i) => (
+              {
+                text: 'Built on over 23 years of live trading history',
+                icon: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="24" r="18" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+                    <path d="M24 12V24L32 28" stroke="#C9A96E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    <path d="M10 24C10 16.3 16.3 10 24 10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" fill="none" strokeDasharray="4 3" />
+                    <path d="M38 24C38 31.7 31.7 38 24 38" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" fill="none" strokeDasharray="4 3" />
+                  </svg>
+                ),
+              },
+              {
+                text: 'Designed for capital stability, not speculation',
+                icon: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <path d="M24 4L6 12V22C6 33.1 13.8 43.3 24 46C34.2 43.3 42 33.1 42 22V12L24 4Z" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" strokeLinejoin="round" />
+                    <polyline points="14,28 20,24 26,26 34,18" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    <polyline points="30,18 34,18 34,22" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ),
+              },
+              {
+                text: 'Targets low single-digit monthly yield under strict capital control',
+                icon: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <circle cx="24" cy="24" r="18" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+                    <circle cx="24" cy="24" r="12" stroke="#C9A96E" strokeWidth="1" fill="none" opacity="0.4" />
+                    <circle cx="24" cy="24" r="6" stroke="#C9A96E" strokeWidth="1" fill="none" opacity="0.6" />
+                    <circle cx="24" cy="24" r="2.5" fill="#C9A96E" />
+                    <line x1="24" y1="2" x2="24" y2="8" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" />
+                    <line x1="24" y1="40" x2="24" y2="46" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" />
+                    <line x1="2" y1="24" x2="8" y2="24" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" />
+                    <line x1="40" y1="24" x2="46" y2="24" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" />
+                  </svg>
+                ),
+              },
+              {
+                text: 'No positions carried overnight — each session resets to neutral',
+                icon: (
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <path d="M36 12C36 12 32 8 24 8C14.1 8 6 16.1 6 26" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <polyline points="30,12 36,12 36,18" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 36C12 36 16 40 24 40C33.9 40 42 31.9 42 22" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                    <polyline points="18,36 12,36 12,30" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    <line x1="20" y1="20" x2="28" y2="28" stroke="#C9A96E" strokeWidth="1.5" strokeLinecap="round" />
+                    <line x1="28" y1="20" x2="20" y2="28" stroke="#C9A96E" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ),
+              },
+            ].map((item, i) => (
               <ScrollReveal key={i}>
-                <div className="text-center">
-                  <p className="text-[15px] text-light-gray leading-body">{stat}</p>
+                <div className="bg-white/[0.04] border border-white/10 rounded-lg p-6 md:p-8 text-center">
+                  <div className="flex justify-center mb-4">{item.icon}</div>
+                  <p className="text-[15px] text-light-gray leading-body">{item.text}</p>
                 </div>
               </ScrollReveal>
             ))}
