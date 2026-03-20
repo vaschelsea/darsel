@@ -1,69 +1,548 @@
 'use client';
 
-/* ── Strategy Hero ── Chess/calculation concept ── */
+/* ── Strategy Hero ── Vertical flow diagram showing BOB's decision process ── */
 export function StrategyHeroAnimation() {
+  const cx = 200;
+  const nodeW = 160;
+  const nodeH = 36;
+  const subH = 14;
+
+  const nodes = [
+    { y: 20, label: 'Market conditions', sub: null, gold: false },
+    { y: 75, label: 'Volatility assessment', sub: 'Leverage indexed to conditions', gold: false },
+    { y: 140, label: 'Signal detection', sub: 'Statistically favorable setups only', gold: false },
+  ];
+
+  const forkY = 205;
+  const forkNodes = [
+    { x: 120, label: 'Execute', sub: 'Precision over frequency', gold: true },
+    { x: 280, label: 'No trade', sub: 'Protection over expansion', gold: false },
+  ];
+
+  const mergeY = 275;
+  const mergeNode = { label: 'Session close → Neutral', sub: 'No overnight positions' };
+
+  return (
+    <div className="w-full max-w-[400px]">
+      <svg viewBox="0 0 400 340" fill="none" className="w-full h-auto" aria-hidden="true">
+        {/* Main vertical nodes */}
+        {nodes.map((node, i) => (
+          <g key={`n-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.2 + i * 0.25}s` }}>
+            <rect
+              x={cx - nodeW / 2}
+              y={node.y}
+              width={nodeW}
+              height={nodeH}
+              rx="4"
+              fill="none"
+              stroke={node.gold ? '#C9A96E' : '#374151'}
+              strokeWidth="1"
+            />
+            <text
+              x={cx}
+              y={node.y + nodeH / 2 + 4}
+              textAnchor="middle"
+              fill={node.gold ? '#C9A96E' : '#9CA3AF'}
+              fontSize="12"
+              fontFamily="var(--font-primary)"
+            >
+              {node.label}
+            </text>
+            {node.sub && (
+              <text
+                x={cx}
+                y={node.y + nodeH + subH}
+                textAnchor="middle"
+                fill="#6B7280"
+                fontSize="10"
+                fontFamily="var(--font-mono)"
+              >
+                {node.sub}
+              </text>
+            )}
+          </g>
+        ))}
+
+        {/* Connecting lines between main nodes */}
+        {[0, 1].map((i) => {
+          const fromY = nodes[i].y + nodeH + (nodes[i].sub ? subH + 4 : 4);
+          const toY = nodes[i + 1].y;
+          const midY = (fromY + toY) / 2;
+          return (
+            <g key={`line-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.35 + i * 0.25}s` }}>
+              <line x1={cx} y1={fromY} x2={cx} y2={toY} stroke="rgba(201,169,110,0.4)" strokeWidth="0.5" />
+              {/* Arrow */}
+              <polyline
+                points={`${cx - 3},${midY - 2} ${cx},${midY + 2} ${cx + 3},${midY - 2}`}
+                stroke="rgba(201,169,110,0.4)"
+                strokeWidth="0.75"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+          );
+        })}
+
+        {/* Line from Signal detection to fork */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.9s' }}>
+          {/* Down from Signal detection */}
+          <line x1={cx} y1={nodes[2].y + nodeH + subH + 4} x2={cx} y2={forkY - 18} stroke="rgba(201,169,110,0.4)" strokeWidth="0.5" />
+          {/* Split left */}
+          <polyline
+            points={`${cx},${forkY - 18} ${cx},${forkY - 8} ${forkNodes[0].x},${forkY - 8} ${forkNodes[0].x},${forkY}`}
+            stroke="rgba(201,169,110,0.4)"
+            strokeWidth="0.5"
+            fill="none"
+          />
+          {/* Split right */}
+          <polyline
+            points={`${cx},${forkY - 8} ${forkNodes[1].x},${forkY - 8} ${forkNodes[1].x},${forkY}`}
+            stroke="rgba(201,169,110,0.4)"
+            strokeWidth="0.5"
+            fill="none"
+          />
+          {/* Diamond at fork point */}
+          <polygon
+            points={`${cx},${forkY - 22} ${cx + 5},${forkY - 18} ${cx},${forkY - 14} ${cx - 5},${forkY - 18}`}
+            fill="rgba(201,169,110,0.3)"
+            stroke="#C9A96E"
+            strokeWidth="0.5"
+          />
+        </g>
+
+        {/* Fork nodes: Execute + No trade */}
+        {forkNodes.map((node, i) => (
+          <g key={`fork-${i}`} className="hero-svg-fade" style={{ animationDelay: `${1.1 + i * 0.15}s` }}>
+            <rect
+              x={node.x - nodeW / 2}
+              y={forkY}
+              width={nodeW}
+              height={nodeH}
+              rx="4"
+              fill="none"
+              stroke={node.gold ? '#C9A96E' : '#374151'}
+              strokeWidth="1"
+            />
+            <text
+              x={node.x}
+              y={forkY + nodeH / 2 + 4}
+              textAnchor="middle"
+              fill={node.gold ? '#C9A96E' : '#6B7280'}
+              fontSize="12"
+              fontFamily="var(--font-primary)"
+              fontWeight={node.gold ? '500' : '400'}
+            >
+              {node.label}
+            </text>
+            {node.sub && (
+              <text
+                x={node.x}
+                y={forkY + nodeH + subH}
+                textAnchor="middle"
+                fill="#6B7280"
+                fontSize="10"
+                fontFamily="var(--font-mono)"
+              >
+                {node.sub}
+              </text>
+            )}
+          </g>
+        ))}
+
+        {/* Merge lines from fork nodes down to merge node */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.4s' }}>
+          <polyline
+            points={`${forkNodes[0].x},${forkY + nodeH + subH + 4} ${forkNodes[0].x},${mergeY - 8} ${cx},${mergeY - 8} ${cx},${mergeY}`}
+            stroke="rgba(201,169,110,0.4)"
+            strokeWidth="0.5"
+            fill="none"
+          />
+          <polyline
+            points={`${forkNodes[1].x},${forkY + nodeH + subH + 4} ${forkNodes[1].x},${mergeY - 8} ${cx},${mergeY - 8}`}
+            stroke="rgba(201,169,110,0.4)"
+            strokeWidth="0.5"
+            fill="none"
+          />
+          {/* Arrow at merge */}
+          <polyline
+            points={`${cx - 3},${mergeY - 4} ${cx},${mergeY} ${cx + 3},${mergeY - 4}`}
+            stroke="rgba(201,169,110,0.4)"
+            strokeWidth="0.75"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+
+        {/* Merge node */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.6s' }}>
+          <rect
+            x={cx - nodeW / 2}
+            y={mergeY}
+            width={nodeW}
+            height={nodeH}
+            rx="4"
+            fill="none"
+            stroke="#374151"
+            strokeWidth="1"
+          />
+          <text
+            x={cx}
+            y={mergeY + nodeH / 2 + 4}
+            textAnchor="middle"
+            fill="#9CA3AF"
+            fontSize="11"
+            fontFamily="var(--font-primary)"
+          >
+            {mergeNode.label}
+          </text>
+          <text
+            x={cx}
+            y={mergeY + nodeH + subH}
+            textAnchor="middle"
+            fill="#6B7280"
+            fontSize="10"
+            fontFamily="var(--font-mono)"
+          >
+            {mergeNode.sub}
+          </text>
+        </g>
+
+        {/* Bottom motto */}
+        <text
+          x={cx}
+          y="335"
+          textAnchor="middle"
+          fill="#6B7280"
+          fontSize="11"
+          fontFamily="var(--font-mono)"
+          letterSpacing="2"
+          className="hero-svg-fade"
+          style={{ animationDelay: '1.9s' }}
+        >
+          ZERO DISCRETION · RULE-BASED · INTRADAY ONLY
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+/* ── MAM Hero ── Hub & Spoke with pulse animation ── */
+export function MAMHeroAnimation() {
+  const accounts = [
+    { cx: 120, cy: 60, label: 'ACC 1', r: 26 },
+    { cx: 300, cy: 60, label: 'ACC 2', r: 22 },
+    { cx: 60, cy: 160, label: 'ACC 3', r: 19 },
+    { cx: 340, cy: 160, label: 'ACC 4', r: 26 },
+    { cx: 120, cy: 250, label: 'ACC 5', r: 22 },
+    { cx: 300, cy: 250, label: 'ACC 6', r: 19 },
+  ];
+  const hub = { cx: 200, cy: 155 };
+
+  return (
+    <div className="w-full max-w-[400px]">
+      <svg viewBox="0 0 400 320" fill="none" className="w-full h-auto" aria-hidden="true">
+        <defs>
+          {/* Define paths for each connection line so animateMotion can follow them */}
+          {accounts.map((acc, i) => (
+            <path
+              key={`path-${i}`}
+              id={`mam-line-${i}`}
+              d={`M${hub.cx},${hub.cy} L${acc.cx},${acc.cy}`}
+            />
+          ))}
+        </defs>
+
+        {/* Connection lines from hub to accounts */}
+        {accounts.map((acc, i) => (
+          <g key={`conn-${i}`}>
+            <line
+              x1={hub.cx}
+              y1={hub.cy}
+              x2={acc.cx}
+              y2={acc.cy}
+              stroke="rgba(201,169,110,0.2)"
+              strokeWidth="1"
+              className="hero-line-draw"
+              style={{ strokeDasharray: 200, strokeDashoffset: 200, animationDelay: `${0.3 + i * 0.15}s` }}
+            />
+            {/* Traveling pulse dot along each line */}
+            <circle r="2.5" fill="#C9A96E" opacity="0">
+              <animateMotion dur="3s" repeatCount="indefinite" begin={`${1.5 + i * 0.4}s`}>
+                <mpath href={`#mam-line-${i}`} />
+              </animateMotion>
+              <animate attributeName="opacity" values="0;0.8;0.8;0" dur="3s" repeatCount="indefinite" begin={`${1.5 + i * 0.4}s`} />
+            </circle>
+          </g>
+        ))}
+
+        {/* Central hub */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.1s' }}>
+          <circle cx={hub.cx} cy={hub.cy} r="36" fill="rgba(201,169,110,0.08)" stroke="#C9A96E" strokeWidth="1.5" />
+          <circle cx={hub.cx} cy={hub.cy} r="24" fill="rgba(201,169,110,0.06)" stroke="rgba(201,169,110,0.4)" strokeWidth="1" />
+          <text x={hub.cx} y={hub.cy - 4} textAnchor="middle" fill="#C9A96E" fontSize="10" fontFamily="var(--font-mono)" fontWeight="600" letterSpacing="1">
+            MAM
+          </text>
+          <text x={hub.cx} y={hub.cy + 10} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="var(--font-mono)">
+            HUB
+          </text>
+        </g>
+        <circle cx={hub.cx} cy={hub.cy} r="36" fill="none" stroke="#C9A96E" strokeWidth="1" className="hero-pulse-ring" />
+
+        {/* Account nodes with size variation */}
+        {accounts.map((acc, i) => (
+          <g key={`acc-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.8 + i * 0.15}s` }}>
+            <circle cx={acc.cx} cy={acc.cy} r={acc.r} fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+            <text x={acc.cx} y={acc.cy + 4} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="0.5">
+              {acc.label}
+            </text>
+            <circle cx={acc.cx} cy={acc.cy} r="4" fill="#C9A96E" opacity="0.6" className="hero-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
+          </g>
+        ))}
+
+        {/* Data flow arrows (small chevrons along lines) */}
+        {[
+          { x: 160, y: 108, r: -55 },
+          { x: 250, y: 108, r: 55 },
+          { x: 130, y: 158, r: -90 },
+          { x: 270, y: 158, r: 90 },
+        ].map((arrow, i) => (
+          <g key={`arr-${i}`} className="hero-svg-fade" style={{ animationDelay: `${1.5 + i * 0.1}s` }} transform={`translate(${arrow.x},${arrow.y}) rotate(${arrow.r})`}>
+            <polyline points="-4,-4 0,0 -4,4" stroke="#C9A96E" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.5" />
+          </g>
+        ))}
+
+        {/* Bottom motto */}
+        <text x="200" y="305" textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)" letterSpacing="2" className="hero-svg-fade" style={{ animationDelay: '2s' }}>
+          SIMULTANEOUS · PROPORTIONAL · TRANSPARENT
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+/* ── Investors Hero ── Concentric arc segments ── */
+export function InvestorsHeroAnimation() {
+  const cx = 200;
+  const cy = 140;
+
+  // 270-degree arcs: start at 135° (bottom-left), end at 45° (bottom-right)
+  // Leaving a 90° gap at the bottom
+  const startAngle = 135;
+  const endAngle = 45;
+
+  function arcPath(r: number): string {
+    const toRad = (deg: number) => (deg * Math.PI) / 180;
+    const x1 = cx + r * Math.cos(toRad(startAngle));
+    const y1 = cy + r * Math.sin(toRad(startAngle));
+    const x2 = cx + r * Math.cos(toRad(endAngle));
+    const y2 = cy + r * Math.sin(toRad(endAngle));
+    return `M ${x1},${y1} A ${r},${r} 0 1,0 ${x2},${y2}`;
+  }
+
+  const arcs = [
+    { r: 100, label: 'Corporate & Family', stroke: '#374151', strokeW: 3, delay: '0.3s', labelAngle: -45, labelOffset: 16 },
+    { r: 75, label: 'Professional', stroke: '#4B5563', strokeW: 3, delay: '0.6s', labelAngle: -45, labelOffset: 16 },
+    { r: 50, label: 'Private', stroke: '#C9A96E', strokeW: 3, delay: '0.9s', labelAngle: -45, labelOffset: 16 },
+  ];
+
+  function labelPos(r: number, angleDeg: number) {
+    const toRad = (deg: number) => (deg * Math.PI) / 180;
+    return {
+      x: cx + r * Math.cos(toRad(angleDeg)),
+      y: cy + r * Math.sin(toRad(angleDeg)),
+    };
+  }
+
   return (
     <div className="w-full max-w-[400px]">
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
-        {/* Grid pattern */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <line key={`vg-${i}`} x1={60 + i * 56} y1="30" x2={60 + i * 56} y2="270" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-        ))}
-        {Array.from({ length: 5 }).map((_, i) => (
-          <line key={`hg-${i}`} x1="40" y1={60 + i * 50} x2="360" y2={60 + i * 50} stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-        ))}
+        {/* Concentric arcs */}
+        {arcs.map((arc, i) => {
+          const lp = labelPos(arc.r, -30);
+          const textX = lp.x + 20;
+          const textY = lp.y;
+          return (
+            <g key={`arc-${i}`} className="hero-svg-fade" style={{ animationDelay: arc.delay }}>
+              <path
+                d={arcPath(arc.r)}
+                stroke={arc.stroke}
+                strokeWidth={arc.strokeW}
+                fill="none"
+                strokeLinecap="round"
+              />
+              {/* Leader line + label */}
+              <line
+                x1={lp.x}
+                y1={lp.y}
+                x2={textX}
+                y2={textY}
+                stroke="#374151"
+                strokeWidth="0.5"
+                strokeDasharray="3 2"
+              />
+              <text
+                x={textX + 6}
+                y={textY + 4}
+                fill={arc.stroke === '#C9A96E' ? '#C9A96E' : 'rgba(255,255,255,0.45)'}
+                fontSize="10"
+                fontFamily="var(--font-mono)"
+                letterSpacing="0.5"
+              >
+                {arc.label}
+              </text>
+            </g>
+          );
+        })}
 
-        {/* Strategic diagonal lines */}
-        <line x1="60" y1="220" x2="180" y2="80" stroke="rgba(201,169,110,0.15)" strokeWidth="1" strokeDasharray="6 4" className="hero-svg-fade" style={{ animationDelay: '0.2s' }} />
-        <line x1="140" y1="240" x2="300" y2="60" stroke="rgba(201,169,110,0.15)" strokeWidth="1" strokeDasharray="6 4" className="hero-svg-fade" style={{ animationDelay: '0.4s' }} />
-        <line x1="220" y1="260" x2="350" y2="100" stroke="rgba(201,169,110,0.15)" strokeWidth="1" strokeDasharray="6 4" className="hero-svg-fade" style={{ animationDelay: '0.6s' }} />
-
-        {/* Rule framework — encoded rules visualization */}
-        {[
-          { x: 80, y: 80, w: 120, label: 'RULE 01' },
-          { x: 220, y: 120, w: 130, label: 'RULE 02' },
-          { x: 100, y: 170, w: 110, label: 'RULE 03' },
-          { x: 240, y: 210, w: 100, label: 'RULE 04' },
-        ].map((rule, i) => (
-          <g key={`rule-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.5 + i * 0.2}s` }}>
-            <rect x={rule.x} y={rule.y} width={rule.w} height="28" rx="4" fill="rgba(201,169,110,0.08)" stroke="rgba(201,169,110,0.3)" strokeWidth="1" />
-            <text x={rule.x + 12} y={rule.y + 18} fill="#C9A96E" fontSize="10" fontFamily="var(--font-mono)" fontWeight="500" letterSpacing="1">
-              {rule.label}
-            </text>
-            <rect x={rule.x + rule.w - 24} y={rule.y + 8} width="12" height="12" rx="2" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" strokeWidth="0.75" />
-          </g>
-        ))}
-
-        {/* Connecting flow lines between rules */}
-        <polyline points="200,94 220,94 220,134" stroke="rgba(201,169,110,0.3)" strokeWidth="1" fill="none" strokeLinecap="round" className="hero-line-draw" style={{ strokeDasharray: 80, strokeDashoffset: 80, animationDelay: '1.2s' }} />
-        <polyline points="210,184 240,184 240,210" stroke="rgba(201,169,110,0.3)" strokeWidth="1" fill="none" strokeLinecap="round" className="hero-line-draw" style={{ strokeDasharray: 80, strokeDashoffset: 80, animationDelay: '1.4s' }} />
-
-        {/* Decision nodes */}
-        {[
-          { cx: 220, cy: 94 },
-          { cx: 240, cy: 184 },
-        ].map((node, i) => (
-          <g key={`node-${i}`} className="hero-svg-fade" style={{ animationDelay: `${1.5 + i * 0.2}s` }}>
-            <circle cx={node.cx} cy={node.cy} r="3" fill="#C9A96E" />
-            <circle cx={node.cx} cy={node.cy} r="3" fill="#C9A96E" className="hero-pulse-ring" />
-          </g>
-        ))}
-
-        {/* Zero discretion indicator */}
-        <g className="hero-svg-fade" style={{ animationDelay: '1.8s' }}>
-          <text x="60" y="268" fill="rgba(255,255,255,0.25)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1.5">
-            ZERO DISCRETION
+        {/* Center text */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.2s' }}>
+          <text x={cx} y={cy - 2} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+            Capital Allocation
           </text>
-          <line x1="60" y1="272" x2="185" y2="272" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
+          <text x={cx} y={cy + 14} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+            by Selection
+          </text>
         </g>
 
-        {/* Precision indicator */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2s' }}>
-          <text x="260" y="268" fill="rgba(255,255,255,0.25)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1.5">
-            RULE-BASED
+        {/* Bottom motto */}
+        <text
+          x={cx}
+          y="285"
+          textAnchor="middle"
+          fill="#6B7280"
+          fontSize="11"
+          fontFamily="var(--font-mono)"
+          letterSpacing="2"
+          className="hero-svg-fade"
+          style={{ animationDelay: '1.5s' }}
+        >
+          TAILORED · VISIBLE · YOUR CONTROL
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+/* ── Access Hero ── Bid/Ask spread comparison: Retail vs DARSAL ── */
+export function AccessHeroAnimation() {
+  const barW = 130;
+  const barH = 36;
+  const leftX = 55;
+  const rightX = 215;
+
+  // Retail: wide gap (60px between bars), DARSAL: narrow gap (12px)
+  const retailAskY = 80;
+  const retailGap = 60;
+  const retailBidY = retailAskY + barH + retailGap;
+
+  const darsalAskY = 80;
+  const darsalGap = 12;
+  const darsalBidY = darsalAskY + barH + darsalGap;
+
+  return (
+    <div className="w-full max-w-[400px]">
+      <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
+        {/* Dashed vertical divider */}
+        <line x1="200" y1="30" x2="200" y2="250" stroke="rgba(55,65,81,0.3)" strokeWidth="1" strokeDasharray="4 4" className="hero-svg-fade" style={{ animationDelay: '0.2s' }} />
+
+        {/* === RETAIL column === */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.3s' }}>
+          <text x={leftX + barW / 2} y="50" textAnchor="middle" fill="#9CA3AF" fontSize="12" fontFamily="var(--font-primary)" fontWeight="500">
+            Retail
           </text>
-          <line x1="260" y1="272" x2="350" y2="272" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
         </g>
+
+        {/* Retail Ask bar */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.5s' }}>
+          <rect x={leftX} y={retailAskY} width={barW} height={barH} rx="3" fill="#4B5563" />
+          <text x={leftX + 10} y={retailAskY + 14} fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-mono)">ASK</text>
+          <text x={leftX + barW / 2} y={retailAskY + barH / 2 + 5} textAnchor="middle" fill="white" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            1.10482
+          </text>
+        </g>
+
+        {/* Retail Bid bar */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.7s' }}>
+          <rect x={leftX} y={retailBidY} width={barW} height={barH} rx="3" fill="#374151" />
+          <text x={leftX + 10} y={retailBidY + 14} fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-mono)">BID</text>
+          <text x={leftX + barW / 2} y={retailBidY + barH / 2 + 5} textAnchor="middle" fill="white" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            1.10300
+          </text>
+        </g>
+
+        {/* Retail spread bracket */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.9s' }}>
+          {/* Bracket line */}
+          <line x1={leftX + barW + 8} y1={retailAskY + barH} x2={leftX + barW + 8} y2={retailBidY} stroke="#6B7280" strokeWidth="0.75" />
+          <line x1={leftX + barW + 5} y1={retailAskY + barH} x2={leftX + barW + 11} y2={retailAskY + barH} stroke="#6B7280" strokeWidth="0.75" />
+          <line x1={leftX + barW + 5} y1={retailBidY} x2={leftX + barW + 11} y2={retailBidY} stroke="#6B7280" strokeWidth="0.75" />
+        </g>
+
+        {/* Retail spread label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.0s' }}>
+          <text x={leftX + barW / 2} y={retailBidY + barH + 22} textAnchor="middle" fill="#6B7280" fontSize="13" fontFamily="var(--font-primary)">
+            Spread:{' '}
+          </text>
+          <text x={leftX + barW / 2 + 40} y={retailBidY + barH + 22} textAnchor="middle" fill="#6B7280" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            1.8 pip
+          </text>
+        </g>
+
+        {/* === DARSAL column === */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.4s' }}>
+          <text x={rightX + barW / 2} y="50" textAnchor="middle" fill="#C9A96E" fontSize="12" fontFamily="var(--font-primary)" fontWeight="500">
+            DARSAL
+          </text>
+        </g>
+
+        {/* DARSAL Ask bar */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.6s' }}>
+          <rect x={rightX} y={darsalAskY} width={barW} height={barH} rx="3" fill="#1C2E4A" stroke="#C9A96E" strokeWidth="1" />
+          <text x={rightX + 10} y={darsalAskY + 14} fill="rgba(201,169,110,0.5)" fontSize="9" fontFamily="var(--font-mono)">ASK</text>
+          <text x={rightX + barW / 2} y={darsalAskY + barH / 2 + 5} textAnchor="middle" fill="#C9A96E" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            1.10436
+          </text>
+        </g>
+
+        {/* DARSAL Bid bar */}
+        <g className="hero-svg-fade" style={{ animationDelay: '0.8s' }}>
+          <rect x={rightX} y={darsalBidY} width={barW} height={barH} rx="3" fill="#1C2E4A" stroke="#C9A96E" strokeWidth="1" />
+          <text x={rightX + 10} y={darsalBidY + 14} fill="rgba(201,169,110,0.5)" fontSize="9" fontFamily="var(--font-mono)">BID</text>
+          <text x={rightX + barW / 2} y={darsalBidY + barH / 2 + 5} textAnchor="middle" fill="#C9A96E" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            1.10430
+          </text>
+        </g>
+
+        {/* DARSAL spread bracket */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.0s' }}>
+          <line x1={rightX + barW + 8} y1={darsalAskY + barH} x2={rightX + barW + 8} y2={darsalBidY} stroke="#C9A96E" strokeWidth="0.75" />
+          <line x1={rightX + barW + 5} y1={darsalAskY + barH} x2={rightX + barW + 11} y2={darsalAskY + barH} stroke="#C9A96E" strokeWidth="0.75" />
+          <line x1={rightX + barW + 5} y1={darsalBidY} x2={rightX + barW + 11} y2={darsalBidY} stroke="#C9A96E" strokeWidth="0.75" />
+        </g>
+
+        {/* DARSAL spread label */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.1s' }}>
+          <text x={rightX + barW / 2} y={darsalBidY + barH + 22} textAnchor="middle" fill="#C9A96E" fontSize="14" fontFamily="var(--font-mono)" fontWeight="700">
+            0.6 pip
+          </text>
+        </g>
+
+        {/* Bottom motto */}
+        <text
+          x="200"
+          y="282"
+          textAnchor="middle"
+          fill="#6B7280"
+          fontSize="11"
+          fontFamily="var(--font-mono)"
+          letterSpacing="2"
+          className="hero-svg-fade"
+          style={{ animationDelay: '1.3s' }}
+        >
+          INSTITUTIONAL · ZERO COMMISSION · NO BARRIERS
+        </text>
       </svg>
     </div>
   );
@@ -140,7 +619,7 @@ export function PerformanceHeroAnimation() {
         </g>
 
         {/* Bottom year labels */}
-        {['\'04', '\'08', '\'12', '\'16', '\'20', '\'25'].map((yr, i) => (
+        {["'04", "'08", "'12", "'16", "'20", "'25"].map((yr, i) => (
           <text key={`yr-${i}`} x={61 + i * 64} y={baseY + 18} fill="rgba(255,255,255,0.2)" fontSize="9" fontFamily="var(--font-mono)" textAnchor="middle" className="hero-svg-fade" style={{ animationDelay: `${0.3 + i * 0.1}s` }}>
             {yr}
           </text>
@@ -157,148 +636,10 @@ export function PerformanceHeroAnimation() {
   );
 }
 
-/* ── MAM Hero ── Connected accounts hub ── */
-export function MAMHeroAnimation() {
-  const accounts = [
-    { cx: 120, cy: 60, label: 'ACC 1' },
-    { cx: 300, cy: 60, label: 'ACC 2' },
-    { cx: 60, cy: 160, label: 'ACC 3' },
-    { cx: 340, cy: 160, label: 'ACC 4' },
-    { cx: 120, cy: 250, label: 'ACC 5' },
-    { cx: 300, cy: 250, label: 'ACC 6' },
-  ];
-  const hub = { cx: 200, cy: 155 };
-
-  return (
-    <div className="w-full max-w-[400px]">
-      <svg viewBox="0 0 400 310" fill="none" className="w-full h-auto" aria-hidden="true">
-        {/* Connection lines from hub to accounts */}
-        {accounts.map((acc, i) => (
-          <line
-            key={`conn-${i}`}
-            x1={hub.cx}
-            y1={hub.cy}
-            x2={acc.cx}
-            y2={acc.cy}
-            stroke="rgba(201,169,110,0.2)"
-            strokeWidth="1"
-            className="hero-line-draw"
-            style={{ strokeDasharray: 200, strokeDashoffset: 200, animationDelay: `${0.3 + i * 0.15}s` }}
-          />
-        ))}
-
-        {/* Central hub */}
-        <g className="hero-svg-fade" style={{ animationDelay: '0.1s' }}>
-          <circle cx={hub.cx} cy={hub.cy} r="36" fill="rgba(201,169,110,0.08)" stroke="#C9A96E" strokeWidth="1.5" />
-          <circle cx={hub.cx} cy={hub.cy} r="24" fill="rgba(201,169,110,0.06)" stroke="rgba(201,169,110,0.4)" strokeWidth="1" />
-          <text x={hub.cx} y={hub.cy - 4} textAnchor="middle" fill="#C9A96E" fontSize="10" fontFamily="var(--font-mono)" fontWeight="600" letterSpacing="1">
-            MAM
-          </text>
-          <text x={hub.cx} y={hub.cy + 10} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="8" fontFamily="var(--font-mono)">
-            HUB
-          </text>
-        </g>
-        <circle cx={hub.cx} cy={hub.cy} r="36" fill="none" stroke="#C9A96E" strokeWidth="1" className="hero-pulse-ring" />
-
-        {/* Account nodes */}
-        {accounts.map((acc, i) => (
-          <g key={`acc-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.8 + i * 0.15}s` }}>
-            <circle cx={acc.cx} cy={acc.cy} r="22" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-            <text x={acc.cx} y={acc.cy + 4} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="0.5">
-              {acc.label}
-            </text>
-            <circle cx={acc.cx} cy={acc.cy} r="4" fill="#C9A96E" opacity="0.6" className="hero-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-          </g>
-        ))}
-
-        {/* Data flow arrows (small chevrons along lines) */}
-        {[
-          { x: 160, y: 108, r: -55 },
-          { x: 250, y: 108, r: 55 },
-          { x: 130, y: 158, r: -90 },
-          { x: 270, y: 158, r: 90 },
-        ].map((arrow, i) => (
-          <g key={`arr-${i}`} className="hero-svg-fade" style={{ animationDelay: `${1.5 + i * 0.1}s` }} transform={`translate(${arrow.x},${arrow.y}) rotate(${arrow.r})`}>
-            <polyline points="-4,-4 0,0 -4,4" stroke="#C9A96E" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.5" />
-          </g>
-        ))}
-
-        {/* Label */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2s' }}>
-          <text x="200" y="295" textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1.5">
-            PROPORTIONAL ALLOCATION
-          </text>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-/* ── Investors Hero ── Portfolio growth ── */
-export function InvestorsHeroAnimation() {
-  return (
-    <div className="w-full max-w-[400px]">
-      <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
-        {/* Circular chart base */}
-        <circle cx="200" cy="140" r="90" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-        <circle cx="200" cy="140" r="70" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-
-        {/* Pie segments */}
-        <path d="M200,140 L200,50 A90,90 0 0,1 278,95 Z" fill="rgba(201,169,110,0.15)" stroke="#C9A96E" strokeWidth="1.5" className="hero-svg-fade" style={{ animationDelay: '0.3s' }} />
-        <path d="M200,140 L278,95 A90,90 0 0,1 275,195 Z" fill="rgba(201,169,110,0.1)" stroke="rgba(201,169,110,0.6)" strokeWidth="1.5" className="hero-svg-fade" style={{ animationDelay: '0.6s' }} />
-        <path d="M200,140 L275,195 A90,90 0 0,1 200,230 Z" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" className="hero-svg-fade" style={{ animationDelay: '0.9s' }} />
-        <path d="M200,140 L200,230 A90,90 0 0,1 200,50 Z" fill="rgba(201,169,110,0.06)" stroke="rgba(201,169,110,0.3)" strokeWidth="1.5" className="hero-svg-fade" style={{ animationDelay: '1.2s' }} />
-
-        {/* Center dot */}
-        <circle cx="200" cy="140" r="6" fill="rgba(201,169,110,0.2)" stroke="#C9A96E" strokeWidth="1" className="hero-svg-fade" style={{ animationDelay: '0.2s' }} />
-
-        {/* Segment labels */}
-        {[
-          { x: 248, y: 80, text: 'PRIVATE', delay: '1.4s' },
-          { x: 280, y: 155, text: 'PROFESSIONAL', delay: '1.6s' },
-          { x: 245, y: 220, text: 'CORPORATE', delay: '1.8s' },
-          { x: 130, y: 145, text: 'FAMILY', delay: '2.0s' },
-        ].map((lbl, i) => (
-          <text key={`seg-${i}`} x={lbl.x} y={lbl.y} fill="rgba(255,255,255,0.35)" fontSize="8" fontFamily="var(--font-mono)" letterSpacing="1" className="hero-svg-fade" style={{ animationDelay: lbl.delay }}>
-            {lbl.text}
-          </text>
-        ))}
-
-        {/* Growth arrow */}
-        <polyline
-          points="60,250 100,230 150,220 200,190 260,170 320,145 360,120"
-          stroke="#C9A96E"
-          strokeWidth="2"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="hero-line-draw"
-          style={{ strokeDasharray: 400, strokeDashoffset: 400, animationDelay: '1.5s' }}
-        />
-        <g className="hero-svg-fade" style={{ animationDelay: '2.2s' }}>
-          <polyline points="350,115 360,120 355,130" stroke="#C9A96E" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-
-        {/* Pulsing endpoint */}
-        <circle cx="360" cy="120" r="4" fill="#C9A96E" className="hero-pulse" style={{ animationDelay: '2.2s' }} />
-        <circle cx="360" cy="120" r="4" fill="#C9A96E" className="hero-pulse-ring" />
-
-        {/* Bottom labels */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2.3s' }}>
-          <text x="200" y="280" textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1.5">
-            PORTFOLIO DIVERSIFICATION
-          </text>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
 /* ── High Water Mark ── Interactive equity curve visualization ── */
 export function HighWaterMarkAnimation() {
-  // Equity curve: rises → peak → drops → recovers → new peak
   const equityLine = '50,200 80,170 110,140 140,110 170,90 200,80 230,110 260,130 290,100 320,80 350,60 380,50 410,45';
-  const hwmY = 80; // Y position of the first peak (High Water Mark line)
+  const hwmY = 80;
 
   return (
     <div className="w-full">
@@ -322,7 +663,7 @@ export function HighWaterMarkAnimation() {
           </text>
         ))}
 
-        {/* NO FEE region (below HWM during recovery) — shown first so it's behind the line */}
+        {/* NO FEE region */}
         <polygon
           points={`200,${hwmY} 230,${hwmY} 260,${hwmY} 290,${hwmY} 230,110 260,130 290,100`}
           fill="rgba(156,163,175,0.08)"
@@ -331,7 +672,7 @@ export function HighWaterMarkAnimation() {
           style={{ animationDelay: '2s' }}
         />
 
-        {/* FEE region (above HWM after new peak) */}
+        {/* FEE region */}
         <polygon
           points={`290,${hwmY} 320,${hwmY} 350,${hwmY} 380,${hwmY} 410,${hwmY} 410,45 380,50 350,60 320,${hwmY} 290,100`}
           fill="rgba(201,169,110,0.12)"
@@ -419,99 +760,6 @@ export function HighWaterMarkAnimation() {
             RECOVERY
           </text>
           <polyline points="275,96 280,100 285,96" stroke="#9CA3AF" strokeWidth="1" fill="none" strokeLinecap="round" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-/* ── Access Hero ── Gateway / institutional access ── */
-export function AccessHeroAnimation() {
-  return (
-    <div className="w-full max-w-[400px]">
-      <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
-        {/* Gateway pillars */}
-        <g className="hero-svg-fade" style={{ animationDelay: '0.2s' }}>
-          <rect x="120" y="50" width="16" height="200" rx="3" fill="rgba(201,169,110,0.1)" stroke="#C9A96E" strokeWidth="1.5" />
-          <rect x="264" y="50" width="16" height="200" rx="3" fill="rgba(201,169,110,0.1)" stroke="#C9A96E" strokeWidth="1.5" />
-        </g>
-
-        {/* Arch */}
-        <path d="M128,50 Q200,10 272,50" stroke="#C9A96E" strokeWidth="1.5" fill="none" className="hero-line-draw" style={{ strokeDasharray: 200, strokeDashoffset: 200, animationDelay: '0.5s' }} />
-
-        {/* Inner gateway glow */}
-        <rect x="140" y="60" width="120" height="185" rx="2" fill="rgba(201,169,110,0.03)" className="hero-svg-fade" style={{ animationDelay: '0.7s' }} />
-
-        {/* Price ticker lines flowing through gateway */}
-        {[
-          { y: 90, w: 80, delay: '0.8s' },
-          { y: 110, w: 95, delay: '1.0s' },
-          { y: 130, w: 70, delay: '1.2s' },
-          { y: 150, w: 90, delay: '1.4s' },
-          { y: 170, w: 75, delay: '1.6s' },
-          { y: 190, w: 85, delay: '1.8s' },
-          { y: 210, w: 65, delay: '2.0s' },
-        ].map((line, i) => (
-          <g key={`tick-${i}`} className="hero-svg-fade" style={{ animationDelay: line.delay }}>
-            <rect x={200 - line.w / 2} y={line.y} width={line.w} height="6" rx="1" fill={i % 2 === 0 ? 'rgba(201,169,110,0.15)' : 'rgba(255,255,255,0.06)'} />
-            <text x={200 - line.w / 2 + 6} y={line.y + 5} fill={i % 2 === 0 ? 'rgba(201,169,110,0.5)' : 'rgba(255,255,255,0.2)'} fontSize="5" fontFamily="var(--font-mono)">
-              {['1.1042', '1.1036', '1.1048', '1.1039', '1.1045', '1.1041', '1.1043'][i]}
-            </text>
-          </g>
-        ))}
-
-        {/* Spread indicator in center */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2.2s' }}>
-          <rect x="168" y="135" width="64" height="32" rx="4" fill="rgba(201,169,110,0.1)" stroke="#C9A96E" strokeWidth="1" />
-          <text x="200" y="148" textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="var(--font-mono)">SPREAD</text>
-          <text x="200" y="162" textAnchor="middle" fill="#C9A96E" fontSize="14" fontFamily="var(--font-mono)" fontWeight="600">0.6</text>
-        </g>
-
-        {/* Base line */}
-        <line x1="100" y1="250" x2="300" y2="250" stroke="rgba(255,255,255,0.1)" strokeWidth="1" className="hero-svg-fade" style={{ animationDelay: '0.3s' }} />
-
-        {/* Left side: Retail label */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2.4s' }}>
-          <text x="60" y="155" textAnchor="middle" fill="rgba(255,255,255,0.15)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1" transform="rotate(-90, 60, 155)">
-            RETAIL
-          </text>
-        </g>
-
-        {/* Right side: Institutional label */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2.4s' }}>
-          <text x="340" y="155" textAnchor="middle" fill="#C9A96E" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1" opacity="0.5" transform="rotate(90, 340, 155)">
-            INSTITUTIONAL
-          </text>
-        </g>
-
-        {/* Arrow flowing through */}
-        <polyline
-          points="50,155 120,155"
-          stroke="rgba(255,255,255,0.2)"
-          strokeWidth="1.5"
-          fill="none"
-          strokeLinecap="round"
-          className="hero-line-draw"
-          style={{ strokeDasharray: 100, strokeDashoffset: 100, animationDelay: '2.5s' }}
-        />
-        <polyline
-          points="280,155 350,155"
-          stroke="#C9A96E"
-          strokeWidth="1.5"
-          fill="none"
-          strokeLinecap="round"
-          className="hero-line-draw"
-          style={{ strokeDasharray: 100, strokeDashoffset: 100, animationDelay: '2.6s' }}
-        />
-        <g className="hero-svg-fade" style={{ animationDelay: '2.8s' }}>
-          <polyline points="345,150 355,155 345,160" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-
-        {/* Bottom label */}
-        <g className="hero-svg-fade" style={{ animationDelay: '2.6s' }}>
-          <text x="200" y="275" textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="1.5">
-            INSTITUTIONAL ACCESS
-          </text>
         </g>
       </svg>
     </div>
