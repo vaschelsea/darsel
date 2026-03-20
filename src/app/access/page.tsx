@@ -61,14 +61,46 @@ export default function AccessPage() {
 
       {/* Who This Is For */}
       <section className="py-20 md:py-28 bg-bg-primary">
-        <div className="mx-auto max-w-text px-6">
+        <div className="mx-auto max-w-content px-6">
           <ScrollReveal>
-            <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-8">
-              Who This Is For
-            </h2>
-            <p className="text-base text-charcoal leading-body">
-              Experienced traders managing their own capital who are tired of paying retail spreads for institutional-grade strategies. If execution conditions are the difference between profitability and breakeven for you, this is what you&apos;ve been looking for.
-            </p>
+            <div className="bg-white border border-border-light rounded-lg p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+              <div className="grid md:grid-cols-[auto_1fr] gap-8 items-start">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="offer-icon shrink-0" aria-hidden="true">
+                  {/* Person */}
+                  <circle cx="34" cy="22" r="10" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.06)" />
+                  <path d="M16 56C16 44 24 36 34 36C44 36 52 44 52 56" stroke="#C9A96E" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                  {/* Terminal screen */}
+                  <rect x="44" y="12" width="28" height="22" rx="3" stroke="#C9A96E" strokeWidth="1.5" fill="rgba(201,169,110,0.08)" />
+                  <polyline points="50,20 54,24 58,18 62,22 66,19" stroke="#C9A96E" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  <line x1="50" y1="28" x2="66" y2="28" stroke="rgba(201,169,110,0.3)" strokeWidth="1" strokeLinecap="round" />
+                  {/* Chart bars */}
+                  <rect x="50" y="42" width="5" height="14" rx="1" fill="rgba(201,169,110,0.15)" stroke="rgba(201,169,110,0.4)" strokeWidth="0.75" />
+                  <rect x="58" y="38" width="5" height="18" rx="1" fill="rgba(201,169,110,0.2)" stroke="rgba(201,169,110,0.4)" strokeWidth="0.75" />
+                  <rect x="66" y="44" width="5" height="12" rx="1" fill="rgba(201,169,110,0.15)" stroke="rgba(201,169,110,0.4)" strokeWidth="0.75" />
+                  {/* Base line */}
+                  <line x1="14" y1="64" x2="74" y2="64" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
+                </svg>
+                <div>
+                  <h2 className="text-2xl md:text-[28px] font-medium text-charcoal leading-heading tracking-heading mb-4">
+                    Who This Is For
+                  </h2>
+                  <p className="text-base text-charcoal leading-body mb-6">
+                    Experienced traders managing their own capital who are tired of paying retail spreads for institutional-grade strategies. If execution conditions are the difference between profitability and breakeven for you, this is what you&apos;ve been looking for.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="inline-block border border-gold/30 text-gold text-xs font-mono px-3 py-1.5 rounded-full">
+                      Manages own capital
+                    </span>
+                    <span className="inline-block border border-gold/30 text-gold text-xs font-mono px-3 py-1.5 rounded-full">
+                      Execution-sensitive strategies
+                    </span>
+                    <span className="inline-block border border-gold/30 text-gold text-xs font-mono px-3 py-1.5 rounded-full">
+                      Institutional-grade requirements
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </ScrollReveal>
         </div>
       </section>

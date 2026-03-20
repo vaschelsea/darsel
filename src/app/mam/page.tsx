@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/Hero';
-import { MAMHeroAnimation } from '@/components/HeroAnimations';
+import { MAMHeroAnimation, HighWaterMarkAnimation } from '@/components/HeroAnimations';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -98,15 +98,33 @@ export default function MAMPage() {
 
       {/* High Water Mark Explainer */}
       <section className="py-20 md:py-28 bg-bg-primary">
-        <div className="mx-auto max-w-text px-6">
+        <div className="mx-auto max-w-content px-6">
           <ScrollReveal>
-            <div className="bg-white border border-border-light rounded-lg p-8 md:p-12 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
-              <h3 className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-4">
-                What &ldquo;High Water Mark&rdquo; Means
-              </h3>
-              <p className="text-base text-charcoal leading-body">
-                You only pay the 20% performance fee on net new gains. If your account drops and then recovers, you pay nothing on the recovery — only on profits above your previous peak. This aligns our incentives completely with yours.
-              </p>
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div>
+                <h3 className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-4">
+                  What &ldquo;High Water Mark&rdquo; Means
+                </h3>
+                <p className="text-base text-charcoal leading-body mb-4">
+                  You only pay the 20% performance fee on net new gains. If your account drops and then recovers, you pay nothing on the recovery — only on profits above your previous peak.
+                </p>
+                <p className="text-base text-charcoal leading-body mb-6">
+                  This aligns our incentives completely with yours.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <span className="inline-flex items-center gap-2 border border-gold/30 text-gold text-xs font-mono px-3 py-1.5 rounded-full">
+                    <span className="w-2 h-2 rounded-full bg-gold/40" />
+                    Fee on new gains only
+                  </span>
+                  <span className="inline-flex items-center gap-2 border border-border-light text-cool-gray text-xs font-mono px-3 py-1.5 rounded-full">
+                    <span className="w-2 h-2 rounded-full bg-cool-gray/30" />
+                    No fee on recovery
+                  </span>
+                </div>
+              </div>
+              <div className="bg-white border border-border-light rounded-lg p-4 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+                <HighWaterMarkAnimation />
+              </div>
             </div>
           </ScrollReveal>
         </div>
