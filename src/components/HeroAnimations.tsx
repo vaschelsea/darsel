@@ -242,7 +242,7 @@ export function MAMHeroAnimation() {
 
   return (
     <div className="w-full max-w-[400px]">
-      <svg viewBox="0 0 400 320" fill="none" className="w-full h-auto" aria-hidden="true">
+      <svg viewBox="0 0 400 340" fill="none" className="w-full h-auto" aria-hidden="true">
         <defs>
           {/* Define paths for each connection line so animateMotion can follow them */}
           {accounts.map((acc, i) => (
@@ -294,10 +294,11 @@ export function MAMHeroAnimation() {
         {accounts.map((acc, i) => (
           <g key={`acc-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.8 + i * 0.15}s` }}>
             <circle cx={acc.cx} cy={acc.cy} r={acc.r} fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-            <text x={acc.cx} y={acc.cy + 4} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="9" fontFamily="var(--font-mono)" letterSpacing="0.5">
+            <circle cx={acc.cx} cy={acc.cy} r="4" fill="#C9A96E" opacity="0.6" className="hero-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
+            {/* Label below circle */}
+            <text x={acc.cx} y={acc.cy + acc.r + 14} textAnchor="middle" fill="#9CA3AF" fontSize="11" fontFamily="var(--font-mono)">
               {acc.label}
             </text>
-            <circle cx={acc.cx} cy={acc.cy} r="4" fill="#C9A96E" opacity="0.6" className="hero-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
           </g>
         ))}
 
@@ -314,7 +315,7 @@ export function MAMHeroAnimation() {
         ))}
 
         {/* Bottom motto */}
-        <text x="200" y="305" textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)" letterSpacing="2" className="hero-svg-fade" style={{ animationDelay: '2s' }}>
+        <text x="200" y="325" textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)" letterSpacing="2" className="hero-svg-fade" style={{ animationDelay: '2s' }}>
           SIMULTANEOUS · PROPORTIONAL · TRANSPARENT
         </text>
       </svg>
@@ -343,68 +344,52 @@ export function InvestorsHeroAnimation() {
   }
 
   const arcs = [
-    { r: 100, label: 'Corporate & Family', stroke: '#374151', strokeW: 3, delay: '0.3s' },
-    { r: 75, label: 'Professional', stroke: '#4B5563', strokeW: 3, delay: '0.6s' },
-    { r: 50, label: 'Private', stroke: '#C9A96E', strokeW: 3, delay: '0.9s' },
+    { r: 100, stroke: '#374151', strokeW: 3, delay: '0.3s' },
+    { r: 75, stroke: '#4B5563', strokeW: 3, delay: '0.6s' },
+    { r: 50, stroke: '#C9A96E', strokeW: 3, delay: '0.9s' },
   ];
 
-  function labelPos(r: number, angleDeg: number) {
-    const toRad = (deg: number) => (deg * Math.PI) / 180;
-    return {
-      x: cx + r * Math.cos(toRad(angleDeg)),
-      y: cy + r * Math.sin(toRad(angleDeg)),
-    };
-  }
+  const legend = [
+    { label: 'Private', color: '#C9A96E' },
+    { label: 'Professional', color: '#4B5563' },
+    { label: 'Corporate & Family', color: '#374151' },
+  ];
 
   return (
     <div className="w-full max-w-[400px]">
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
-        {/* Concentric arcs */}
-        {arcs.map((arc, i) => {
-          // Place labels on the left side of the arcs at ~150° to avoid right-edge clipping
-          const lp = labelPos(arc.r, 150);
-          const textX = lp.x - 20;
-          const textY = lp.y;
+        {/* Concentric arcs — no per-arc labels */}
+        {arcs.map((arc, i) => (
+          <g key={`arc-${i}`} className="hero-svg-fade" style={{ animationDelay: arc.delay }}>
+            <path
+              d={arcPath(arc.r)}
+              stroke={arc.stroke}
+              strokeWidth={arc.strokeW}
+              fill="none"
+              strokeLinecap="round"
+            />
+          </g>
+        ))}
+
+        {/* Stacked legend — centered below arcs, above center text */}
+        {legend.map((item, i) => {
+          const legendY = cy + 16 + i * 20;
           return (
-            <g key={`arc-${i}`} className="hero-svg-fade" style={{ animationDelay: arc.delay }}>
-              <path
-                d={arcPath(arc.r)}
-                stroke={arc.stroke}
-                strokeWidth={arc.strokeW}
-                fill="none"
-                strokeLinecap="round"
-              />
-              {/* Leader line + label */}
-              <line
-                x1={lp.x}
-                y1={lp.y}
-                x2={textX}
-                y2={textY}
-                stroke="#374151"
-                strokeWidth="0.5"
-                strokeDasharray="3 2"
-              />
-              <text
-                x={textX - 6}
-                y={textY + 4}
-                textAnchor="end"
-                fill={arc.stroke === '#C9A96E' ? '#C9A96E' : 'rgba(255,255,255,0.45)'}
-                fontSize="10"
-                fontFamily="var(--font-mono)"
-                letterSpacing="0.5"
-              >
-                {arc.label}
+            <g key={`leg-${i}`} className="hero-svg-fade" style={{ animationDelay: `${0.9 + i * 0.15}s` }}>
+              <line x1={cx - 60} y1={legendY} x2={cx - 48} y2={legendY} stroke={item.color} strokeWidth="3" strokeLinecap="round" />
+              <text x={cx - 40} y={legendY + 4} fill={item.color === '#C9A96E' ? '#C9A96E' : 'rgba(255,255,255,0.45)'} fontSize="13" fontFamily="var(--font-mono)">
+                {item.label}
               </text>
             </g>
           );
         })}
 
-        {/* Center text — sits in the open space below the arcs */}
-        <g className="hero-svg-fade" style={{ animationDelay: '1.2s' }}>
-          <text x={cx} y={cy + 90} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+        {/* Center text — sits below the legend */}
+        <g className="hero-svg-fade" style={{ animationDelay: '1.4s' }}>
+          <text x={cx} y={cy + 96} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
             Capital Allocation
           </text>
-          <text x={cx} y={cy + 106} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
+          <text x={cx} y={cy + 112} textAnchor="middle" fill="#6B7280" fontSize="11" fontFamily="var(--font-mono)">
             by Selection
           </text>
         </g>
