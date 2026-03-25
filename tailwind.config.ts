@@ -8,11 +8,11 @@ const config: Config = {
     extend: {
       colors: {
         navy: {
-          deep: '#0A1628',
-          mid: '#1C2E4A',
+          deep: '#2A0808',
+          mid: '#881010',
         },
         gold: '#C9A96E',
-        'red-dark': '#8B0000',
+        'red-dark': '#881010',
         charcoal: '#2A2A2A',
         'cool-gray': '#6B7280',
         'light-gray': '#9CA3AF',
