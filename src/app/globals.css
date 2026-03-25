@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --color-navy-deep: #0A1628;
-  --color-navy-mid: #1C2E4A;
+  --color-navy-deep: #2A0808;
+  --color-navy-mid: #881010;
   --color-gold: #C9A96E;
-  --color-red-dark: #8B0000;
+  --color-red-dark: #881010;
   --color-bg-primary: #F7F8FA;
   --color-bg-card: #FFFFFF;
   --color-text-primary: #2A2A2A;
@@ -16,7 +16,7 @@
   --color-border-light: #E5E7EB;
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-  --hero-gradient: linear-gradient(165deg, #0A1628 0%, #1C2E4A 100%);
+  --hero-gradient: linear-gradient(165deg, #2A0808 0%, #881010 100%);
 }
 
 html {

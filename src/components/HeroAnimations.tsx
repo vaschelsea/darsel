@@ -487,7 +487,7 @@ export function AccessHeroAnimation() {
 
         {/* DARSAL Ask bar */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.6s' }}>
-          <rect x={rightX} y={darsalAskY} width={barW} height={barH} rx="3" fill="#1C2E4A" stroke="#C9A96E" strokeWidth="1" />
+          <rect x={rightX} y={darsalAskY} width={barW} height={barH} rx="3" fill="#881010" stroke="#C9A96E" strokeWidth="1" />
           <text x={rightX + 10} y={darsalAskY + 14} fill="rgba(201,169,110,0.5)" fontSize="9" fontFamily="var(--font-mono)">ASK</text>
           <text x={rightX + barW / 2} y={darsalAskY + barH / 2 + 5} textAnchor="middle" fill="#C9A96E" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
             1.10436
@@ -496,7 +496,7 @@ export function AccessHeroAnimation() {
 
         {/* DARSAL Bid bar */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.8s' }}>
-          <rect x={rightX} y={darsalBidY} width={barW} height={barH} rx="3" fill="#1C2E4A" stroke="#C9A96E" strokeWidth="1" />
+          <rect x={rightX} y={darsalBidY} width={barW} height={barH} rx="3" fill="#881010" stroke="#C9A96E" strokeWidth="1" />
           <text x={rightX + 10} y={darsalBidY + 14} fill="rgba(201,169,110,0.5)" fontSize="9" fontFamily="var(--font-mono)">BID</text>
           <text x={rightX + barW / 2} y={darsalBidY + barH / 2 + 5} textAnchor="middle" fill="#C9A96E" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
             1.10430
