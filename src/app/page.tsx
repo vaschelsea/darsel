@@ -93,6 +93,7 @@ export default function HomePage() {
         headline=""
         subheadline="No commission. No stop level. No freeze level."
         rightContent={<HeroAnimation />}
+        videoSrc="/horizontal.mp4"
       >
         <p className="mt-4 max-w-text text-[15px] md:text-base text-light-gray leading-body">
           The trading conditions hedge funds negotiate — now available to independent traders managing their own capital.

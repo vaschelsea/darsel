@@ -5,16 +5,31 @@ interface HeroProps {
   displayNumber?: string;
   rightContent?: React.ReactNode;
   children?: React.ReactNode;
+  videoSrc?: string;
 }
 
-export default function Hero({ label, headline, subheadline, displayNumber, rightContent, children }: HeroProps) {
+export default function Hero({ label, headline, subheadline, displayNumber, rightContent, children, videoSrc }: HeroProps) {
   if (rightContent) {
     return (
       <section
-        className="py-24 md:py-32 lg:py-40"
+        className="relative py-24 md:py-32 lg:py-40 overflow-hidden"
         style={{ background: 'var(--hero-gradient)' }}
       >
-        <div className="mx-auto max-w-content px-6 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {videoSrc && (
+          <>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={videoSrc} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-[#2A0808]/70" />
+          </>
+        )}
+        <div className="relative mx-auto max-w-content px-6 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
             {label && (
               <p className="font-mono text-[13px] uppercase tracking-caps text-gold mb-4">
@@ -48,10 +63,24 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
 
   return (
     <section
-      className="py-24 md:py-32 lg:py-40"
+      className="relative py-24 md:py-32 lg:py-40 overflow-hidden"
       style={{ background: 'var(--hero-gradient)' }}
     >
-      <div className="mx-auto max-w-content px-6 text-center">
+      {videoSrc && (
+        <>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-[#2A0808]/70" />
+        </>
+      )}
+      <div className="relative mx-auto max-w-content px-6 text-center">
         {label && (
           <p className="font-mono text-[13px] uppercase tracking-caps text-gold mb-4">
             {label}
