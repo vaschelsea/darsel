@@ -26,7 +26,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
             >
               <source src={videoSrc} type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-[#2A0808]/70" />
+            <div className="absolute inset-0 bg-black/70" />
           </>
         )}
         <div className="relative mx-auto max-w-content px-6 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -77,7 +77,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
           >
             <source src={videoSrc} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-[#2A0808]/70" />
+          <div className="absolute inset-0 bg-black/70" />
         </>
       )}
       <div className="relative mx-auto max-w-content px-6 text-center">
