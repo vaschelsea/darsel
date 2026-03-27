@@ -12,7 +12,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
   if (rightContent) {
     return (
       <section
-        className="relative py-24 md:py-32 lg:py-40 overflow-hidden"
+        className="relative py-16 md:py-32 lg:py-40 overflow-hidden"
         style={{ background: 'var(--hero-gradient)' }}
       >
         {videoSrc && (

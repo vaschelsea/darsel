@@ -59,7 +59,7 @@ export default function HeroAnimation() {
   ];
 
   return (
-    <div ref={ref} className="w-full max-w-[520px] mt-10 pt-8 border-t border-white/[0.08]">
+    <div ref={ref} className="w-full max-w-[520px] mt-6 md:mt-10 pt-6 md:pt-8 border-t border-white/[0.08]">
       {/* Spread comparison bars */}
       <div className="space-y-5">
         {bars.map((bar) => {

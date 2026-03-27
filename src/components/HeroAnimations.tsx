@@ -433,18 +433,18 @@ export function AccessHeroAnimation() {
     <div className="w-full max-w-[400px]">
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-auto" aria-hidden="true">
         {/* Dashed vertical divider */}
-        <line x1="200" y1="30" x2="200" y2="250" stroke="rgba(55,65,81,0.3)" strokeWidth="1" strokeDasharray="4 4" className="hero-svg-fade" style={{ animationDelay: '0.2s' }} />
+        <line x1="200" y1="30" x2="200" y2="250" stroke="rgba(87,98,115,0.4)" strokeWidth="1" strokeDasharray="4 4" className="hero-svg-fade" style={{ animationDelay: '0.2s' }} />
 
         {/* === RETAIL column === */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.3s' }}>
-          <text x={leftX + barW / 2} y="50" textAnchor="middle" fill="#9CA3AF" fontSize="12" fontFamily="var(--font-primary)" fontWeight="500">
+          <text x={leftX + barW / 2} y="50" textAnchor="middle" fill="#C0C5CC" fontSize="12" fontFamily="var(--font-primary)" fontWeight="500">
             Retail
           </text>
         </g>
 
         {/* Retail Ask bar */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.5s' }}>
-          <rect x={leftX} y={retailAskY} width={barW} height={barH} rx="3" fill="#4B5563" />
+          <rect x={leftX} y={retailAskY} width={barW} height={barH} rx="3" fill="#6B7684" />
           <text x={leftX + 10} y={retailAskY + 14} fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-mono)">ASK</text>
           <text x={leftX + barW / 2} y={retailAskY + barH / 2 + 5} textAnchor="middle" fill="white" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
             1.10482
@@ -453,7 +453,7 @@ export function AccessHeroAnimation() {
 
         {/* Retail Bid bar */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.7s' }}>
-          <rect x={leftX} y={retailBidY} width={barW} height={barH} rx="3" fill="#374151" />
+          <rect x={leftX} y={retailBidY} width={barW} height={barH} rx="3" fill="#576273" />
           <text x={leftX + 10} y={retailBidY + 14} fill="rgba(255,255,255,0.4)" fontSize="9" fontFamily="var(--font-mono)">BID</text>
           <text x={leftX + barW / 2} y={retailBidY + barH / 2 + 5} textAnchor="middle" fill="white" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
             1.10300
@@ -463,18 +463,15 @@ export function AccessHeroAnimation() {
         {/* Retail spread bracket */}
         <g className="hero-svg-fade" style={{ animationDelay: '0.9s' }}>
           {/* Bracket line */}
-          <line x1={leftX + barW + 8} y1={retailAskY + barH} x2={leftX + barW + 8} y2={retailBidY} stroke="#6B7280" strokeWidth="0.75" />
-          <line x1={leftX + barW + 5} y1={retailAskY + barH} x2={leftX + barW + 11} y2={retailAskY + barH} stroke="#6B7280" strokeWidth="0.75" />
-          <line x1={leftX + barW + 5} y1={retailBidY} x2={leftX + barW + 11} y2={retailBidY} stroke="#6B7280" strokeWidth="0.75" />
+          <line x1={leftX + barW + 8} y1={retailAskY + barH} x2={leftX + barW + 8} y2={retailBidY} stroke="#949BA5" strokeWidth="0.75" />
+          <line x1={leftX + barW + 5} y1={retailAskY + barH} x2={leftX + barW + 11} y2={retailAskY + barH} stroke="#949BA5" strokeWidth="0.75" />
+          <line x1={leftX + barW + 5} y1={retailBidY} x2={leftX + barW + 11} y2={retailBidY} stroke="#949BA5" strokeWidth="0.75" />
         </g>
 
         {/* Retail spread label */}
         <g className="hero-svg-fade" style={{ animationDelay: '1.0s' }}>
-          <text x={leftX + barW / 2} y={retailBidY + barH + 22} textAnchor="middle" fill="#6B7280" fontSize="13" fontFamily="var(--font-primary)">
-            Spread:{' '}
-          </text>
-          <text x={leftX + barW / 2 + 40} y={retailBidY + barH + 22} textAnchor="middle" fill="#6B7280" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
-            1.8 pip
+          <text x={leftX + barW / 2} y={retailBidY + barH + 22} textAnchor="middle" fill="#949BA5" fontSize="13" fontFamily="var(--font-mono)" fontWeight="500">
+            Spread: 1.8 pip
           </text>
         </g>
 
@@ -522,7 +519,7 @@ export function AccessHeroAnimation() {
           x="200"
           y="282"
           textAnchor="middle"
-          fill="#6B7280"
+          fill="#949BA5"
           fontSize="11"
           fontFamily="var(--font-mono)"
           letterSpacing="2"

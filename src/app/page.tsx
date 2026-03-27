@@ -132,7 +132,7 @@ export default function HomePage() {
               <div>
                 <div className="bg-white border border-border-light rounded-lg p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.08)] mb-6">
                   <p className="text-[15px] text-charcoal leading-body">
-                    We don&apos;t sell courses. We don&apos;t run signal groups. We provide the <span className="text-gold font-medium">infrastructure and execution environment</span> that active, experienced traders actually need.
+                    We provide the <span className="text-gold font-medium">infrastructure and execution environment</span> that active, experienced traders actually need.
                   </p>
                 </div>
                 <StatCards />
