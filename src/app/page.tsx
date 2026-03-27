@@ -108,7 +108,7 @@ export default function HomePage() {
             {/* Left — Mission statement */}
             <ScrollReveal>
               <div>
-                <span className="inline-block text-[33px] font-mono tracking-[2px] text-gold uppercase mb-4" style={{ wordSpacing: '-0.1em' }}>Who We Are</span>
+                <span className="inline-block text-[33px] font-heading tracking-[2px] text-gold uppercase mb-4" style={{ wordSpacing: '-0.1em' }}>Who We Are</span>
                 <p className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-5">
                   DARSAL operates at the intersection of private wealth management and institutional currency trading.
                 </p>

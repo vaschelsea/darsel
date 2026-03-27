@@ -42,7 +42,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
               </p>
             )}
             {headline && (
-              <h1 className="font-inter font-light text-3xl sm:text-4xl md:text-[48px] text-white leading-heading tracking-hero">
+              <h1 className="font-heading font-light text-3xl sm:text-4xl md:text-[48px] text-white leading-heading tracking-hero">
                 {headline}
               </h1>
             )}
@@ -91,7 +91,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
             {displayNumber}
           </p>
         )}
-        <h1 className="font-inter font-light text-3xl sm:text-4xl md:text-[48px] text-white leading-heading tracking-hero">
+        <h1 className="font-heading font-light text-3xl sm:text-4xl md:text-[48px] text-white leading-heading tracking-hero">
           {headline}
         </h1>
         {subheadline && (
