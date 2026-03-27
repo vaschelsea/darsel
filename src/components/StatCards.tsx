@@ -35,7 +35,7 @@ function StatCard({ end, suffix, label, decimals, started }: {
   const display = decimals > 0 ? value.toFixed(decimals) : Math.round(value);
 
   return (
-    <div className="bg-navy-deep rounded-lg py-5 px-3 text-center">
+    <div className="bg-navy-mid rounded-lg py-5 px-3 text-center">
       <p className="text-2xl md:text-3xl font-medium text-white font-mono">
         {display}
         {suffix && <span className="text-gold">{suffix}</span>}
