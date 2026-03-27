@@ -18,7 +18,7 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-navy-deep">
+    <nav className="sticky top-0 z-50 bg-navy-mid">
       <div className="mx-auto max-w-content px-6 py-4 flex items-center justify-between">
         <Link href="/" className="font-heading text-white text-xl font-semibold tracking-heading">
           DARSAL
@@ -59,7 +59,7 @@ export default function Navigation() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-0 bg-navy-deep z-40 flex flex-col items-center justify-center gap-8">
+        <div className="md:hidden fixed inset-0 top-0 bg-navy-mid z-40 flex flex-col items-center justify-center gap-8">
           <button
             className="absolute top-4 right-6 text-white p-2"
             onClick={() => setMobileOpen(false)}
