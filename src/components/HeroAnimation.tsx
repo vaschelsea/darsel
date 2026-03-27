@@ -34,17 +34,17 @@ export default function HeroAnimation() {
     {
       label: 'Retail broker',
       pip: RETAIL_PIP,
-      barColor: 'bg-[#3A3F47]',
-      textColor: 'text-[#9CA3AF]',
-      pipColor: 'text-[#9CA3AF]',
+      barColor: 'bg-[#525860]',
+      textColor: 'text-[#B8BCC3]',
+      pipColor: 'text-[#B8BCC3]',
       delay: '0s',
     },
     {
       label: 'Premium broker',
       pip: PREMIUM_PIP,
-      barColor: 'bg-[#4B5563]',
-      textColor: 'text-[#D1D5DB]',
-      pipColor: 'text-[#D1D5DB]',
+      barColor: 'bg-[#636E7C]',
+      textColor: 'text-[#DFE2E6]',
+      pipColor: 'text-[#DFE2E6]',
       delay: '0.15s',
     },
     {
@@ -153,7 +153,7 @@ export default function HeroAnimation() {
 
       {/* All-in line */}
       <p
-        className="mt-5 font-inter text-[14px] text-[#6B7280] transition-all duration-700 ease-out"
+        className="mt-5 font-inter text-[14px] text-[#8B919A] transition-all duration-700 ease-out"
         style={{
           opacity: entered ? 1 : 0,
           transform: entered ? 'translateY(0)' : 'translateY(12px)',
