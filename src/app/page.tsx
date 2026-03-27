@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Hero from '@/components/Hero';
 import HeroAnimation from '@/components/HeroAnimation';
 import ScrollReveal from '@/components/ScrollReveal';
+import StatCards from '@/components/StatCards';
 
 export const metadata: Metadata = {
   title: 'Home | DARSAL',
@@ -107,7 +108,7 @@ export default function HomePage() {
             {/* Left — Mission statement */}
             <ScrollReveal>
               <div>
-                <span className="inline-block text-[33px] font-mono tracking-[2px] text-gold uppercase mb-4">Who We Are</span>
+                <span className="inline-block text-[33px] font-mono tracking-[2px] text-gold uppercase mb-4" style={{ wordSpacing: '-0.1em' }}>Who We Are</span>
                 <p className="text-lg md:text-xl font-medium text-charcoal leading-heading tracking-heading mb-5">
                   DARSAL operates at the intersection of private wealth management and institutional currency trading.
                 </p>
@@ -134,20 +135,7 @@ export default function HomePage() {
                     We don&apos;t sell courses. We don&apos;t run signal groups. We provide the <span className="text-gold font-medium">infrastructure and execution environment</span> that active, experienced traders actually need.
                   </p>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="text-center">
-                    <p className="text-2xl md:text-3xl font-medium text-charcoal font-mono">40<span className="text-gold">+</span></p>
-                    <p className="text-[11px] font-mono tracking-[1px] text-cool-gray uppercase mt-1">Years</p>
-                  </div>
-                  <div className="text-center border-x border-border-light">
-                    <p className="text-2xl md:text-3xl font-medium text-charcoal font-mono">20<span className="text-gold">+</span></p>
-                    <p className="text-[11px] font-mono tracking-[1px] text-cool-gray uppercase mt-1">FX Years</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl md:text-3xl font-medium text-charcoal font-mono">0.6</p>
-                    <p className="text-[11px] font-mono tracking-[1px] text-cool-gray uppercase mt-1">Pip Spread</p>
-                  </div>
-                </div>
+                <StatCards />
               </div>
             </ScrollReveal>
           </div>

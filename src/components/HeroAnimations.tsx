@@ -35,14 +35,14 @@ export function StrategyHeroAnimation() {
               height={nodeH}
               rx="4"
               fill="none"
-              stroke={node.gold ? '#C9A96E' : '#374151'}
+              stroke={node.gold ? '#C9A96E' : '#576273'}
               strokeWidth="1"
             />
             <text
               x={cx}
               y={node.y + nodeH / 2 + 4}
               textAnchor="middle"
-              fill={node.gold ? '#C9A96E' : '#9CA3AF'}
+              fill={node.gold ? '#C9A96E' : '#C0C5CC'}
               fontSize="12"
               fontFamily="var(--font-primary)"
             >
@@ -53,7 +53,7 @@ export function StrategyHeroAnimation() {
                 x={cx}
                 y={node.y + nodeH + subH}
                 textAnchor="middle"
-                fill="#6B7280"
+                fill="#949BA5"
                 fontSize="10"
                 fontFamily="var(--font-mono)"
               >
@@ -121,14 +121,14 @@ export function StrategyHeroAnimation() {
               height={nodeH}
               rx="4"
               fill="none"
-              stroke={node.gold ? '#C9A96E' : '#374151'}
+              stroke={node.gold ? '#C9A96E' : '#576273'}
               strokeWidth="1"
             />
             <text
               x={node.x}
               y={forkY + nodeH / 2 + 4}
               textAnchor="middle"
-              fill={node.gold ? '#C9A96E' : '#6B7280'}
+              fill={node.gold ? '#C9A96E' : '#949BA5'}
               fontSize="12"
               fontFamily="var(--font-primary)"
               fontWeight={node.gold ? '500' : '400'}
@@ -140,7 +140,7 @@ export function StrategyHeroAnimation() {
                 x={node.x}
                 y={forkY + nodeH + subH}
                 textAnchor="middle"
-                fill="#6B7280"
+                fill="#949BA5"
                 fontSize="10"
                 fontFamily="var(--font-mono)"
               >
@@ -184,14 +184,14 @@ export function StrategyHeroAnimation() {
             height={nodeH}
             rx="4"
             fill="none"
-            stroke="#374151"
+            stroke="#576273"
             strokeWidth="1"
           />
           <text
             x={cx}
             y={mergeY + nodeH / 2 + 4}
             textAnchor="middle"
-            fill="#9CA3AF"
+            fill="#C0C5CC"
             fontSize="11"
             fontFamily="var(--font-primary)"
           >
@@ -201,7 +201,7 @@ export function StrategyHeroAnimation() {
             x={cx}
             y={mergeY + nodeH + subH}
             textAnchor="middle"
-            fill="#6B7280"
+            fill="#949BA5"
             fontSize="10"
             fontFamily="var(--font-mono)"
           >
@@ -214,7 +214,7 @@ export function StrategyHeroAnimation() {
           x={cx}
           y="400"
           textAnchor="middle"
-          fill="#6B7280"
+          fill="#949BA5"
           fontSize="11"
           fontFamily="var(--font-mono)"
           letterSpacing="2"
