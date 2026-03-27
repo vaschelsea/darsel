@@ -34,17 +34,17 @@ export default function HeroAnimation() {
     {
       label: 'Retail broker',
       pip: RETAIL_PIP,
-      barColor: 'bg-[#525860]',
-      textColor: 'text-[#B8BCC3]',
-      pipColor: 'text-[#B8BCC3]',
+      barColor: 'bg-[#6B7280]',
+      textColor: 'text-[#CDD1D6]',
+      pipColor: 'text-[#CDD1D6]',
       delay: '0s',
     },
     {
       label: 'Premium broker',
       pip: PREMIUM_PIP,
-      barColor: 'bg-[#636E7C]',
-      textColor: 'text-[#DFE2E6]',
-      pipColor: 'text-[#DFE2E6]',
+      barColor: 'bg-[#7D8896]',
+      textColor: 'text-[#E8EAED]',
+      pipColor: 'text-[#E8EAED]',
       delay: '0.15s',
     },
     {
