@@ -47,7 +47,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
               </h1>
             )}
             {subheadline && (
-              <p className="mt-6 max-w-text text-[15px] md:text-base text-light-gray leading-body">
+              <p className="mt-6 max-w-text text-[15px] md:text-base text-[#C5C9CF] leading-body">
                 {subheadline}
               </p>
             )}
@@ -95,7 +95,7 @@ export default function Hero({ label, headline, subheadline, displayNumber, righ
           {headline}
         </h1>
         {subheadline && (
-          <p className="mt-6 mx-auto max-w-text text-[15px] md:text-base text-light-gray leading-body">
+          <p className="mt-6 mx-auto max-w-text text-[15px] md:text-base text-[#C5C9CF] leading-body">
             {subheadline}
           </p>
         )}
